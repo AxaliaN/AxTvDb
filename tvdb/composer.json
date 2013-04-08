@@ -1,0 +1,14 @@
+{
+    "name": "moinax/tvdb",
+    "description": "TvDb",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "tvdb"
+    ],
+    "minimum-stability":"dev",
+    "homepage": "http://www.mediacollie.com/",
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "2.*"
+    }
+}
