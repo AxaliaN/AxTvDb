@@ -18,9 +18,7 @@
             "AxTvDb": "src/"
         },
         "classmap": [
-            "src/AxTvDb/Module.php",
-            "src/AxTvDb/Client/Client.php"
-        ],
-        "include_path": [ "src/" ]
+            "src/"
+        ]
     }
 }
