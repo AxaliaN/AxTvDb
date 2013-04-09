@@ -1,24 +1,26 @@
 {
     "name": "axalian/axtvdb",
-    "description": "TvDb",
+    "description": "AxTvDb",
     "license": "BSD-3-Clause",
+    "type": "library",
+    "version": "dev-master",
     "keywords": [
         "tvdb"
     ],
     "minimum-stability":"dev",
     "homepage": "https://github.com/AxaliaN/TvDb",
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=5.4",
         "zendframework/zendframework": "2.*"
     },
     "autoload": {
         "psr-0": {
-            "AxTvDb": "./src/"
+            "AxTvDb": "src/"
         },
         "classmap": [
-            "./src/AxTvDb/Module.php",
-            "./src/AxTvDb/Client/Client.php"
+            "src/AxTvDb/Module.php",
+            "src/AxTvDb/Client/Client.php"
         ],
-        "include_path": [ "./src/" ]
+        "include_path": [ "src/" ]
     }
 }
