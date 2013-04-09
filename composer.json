@@ -14,12 +14,6 @@
         "zendframework/zendframework": "2.*"
     },
     "autoload": {
-        "psr-0": {
-            "AxTvDb": "src/"
-        },
-        "classmap": [
-            "src/",
-            "src/AxTvDb/Module.php"
-        ]
+        "psr-0": { "AxTvDb": "src/" }
     }
 }
