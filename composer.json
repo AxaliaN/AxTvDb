@@ -13,12 +13,12 @@
     },
     "autoload": {
         "psr-0": {
-            "AxTvDb": "../src/"
+            "AxTvDb": "./src/"
         },
         "classmap": [
-            "../src/AxTvDb/Module.php",
-            "../src/AxTvDb/Client/Client.php"
+            "./src/AxTvDb/Module.php",
+            "./src/AxTvDb/Client/Client.php"
         ],
-        "include_path": [ "../src/" ]
+        "include_path": [ "./src/" ]
     }
 }
