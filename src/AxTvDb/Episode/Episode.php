@@ -2,12 +2,19 @@
 
 namespace AxTvDb\Episode;
 
+use AxTvDb\Client\Client;
+use SimpleXMLElement;
+
 /**
  * Episode class. Class for single tv episode for a TV serie.
  *
- * @package TvDb
- * @author Jérôme Poskin <moinax@gmail.com>
- **/
+ * @category AxTvDb
+ * @package  AxTvDb\Episode
+ * @author   Jérôme Poskin <moinax@gmail.com>
+ * @author   Michel Maas <michel@michelmaas.com>
+ * @license  http://www.gnu.org/licenses/gpl.txt GNU GPLv3
+ * @link     https://github.com/AxaliaN/TvDb
+ */
 class Episode
 {
 
@@ -77,7 +84,7 @@ class Episode
     public $ratingCount = 0;
 
     /**
-     * @var DateTime
+     * @var \DateTime
      */
     public $lastUpdated;
 
@@ -99,23 +106,24 @@ class Episode
     /**
      * Constructor
      *
-     * @access public
-     * @return void
-     * @param simplexmlobject $data simplexmlobject created from thetvdb.com's xml data for the tv episode
-     **/
-    public function __construct($data)
+     * @param SimpleXMLElement $data Retrieved SimpleXMLElement
+     */
+    public function __construct(SimpleXMLElement $data)
     {
         $this->id = (int)$data->id;
+
         if (isset($data->Combined_episodenumber)) {
             $this->number = (int)$data->Combined_episodenumber;
         } else {
             $this->number = (int)$data->EpisodeNumber;
         }
+
         if (isset($data->Comined_season)) {
             $this->season = (int)$data->Combined_season;
         } else {
             $this->season = (int)$data->SeasonNumber;
         }
+
         $this->directors = (array)Client::removeEmptyIndexes(explode('|', (string)$data->Director));
         $this->name = (string)$data->EpisodeName;
         $this->firstAired = (string)$data->FirstAired !== '' ? new \DateTime((string)$data->FirstAired) : null;

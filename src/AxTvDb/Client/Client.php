@@ -2,6 +2,7 @@
 
 namespace AxTvDb\Client;
 
+use AxTvDb\Episode\Episode;
 use AxTvDb\Exception\CurlException;
 use AxTvDb\Exception\XmlException;
 use AxTvDb\Serie\Serie;
@@ -10,9 +11,13 @@ use TvDb\Banner;
 /**
  * Base TVDB library class, provides universal functions and variables
  *
- * @package TvDb
- * @author Jérôme Poskin <moinax@gmail.com>
- **/
+ * @category AxTvDb
+ * @package  AxTvDb\Client
+ * @author   Jérôme Poskin <moinax@gmail.com>
+ * @author   Michel Maas <michel@michelmaas.com>
+ * @license  http://www.gnu.org/licenses/gpl.txt GNU GPLv3
+ * @link     https://github.com/AxaliaN/TvDb
+ */
 class Client
 {
     const POST = 'post';
@@ -63,8 +68,12 @@ class Client
     protected $config = array();
 
     /**
-     * @param string $baseUrl Domain name of the api without trailing slash
-     * @param string $apiKey Api key provided by http://thetvdb.com
+     * Instatiates the client
+     *
+     * @param array $config Configuration to use
+     *
+     * @internal param string $baseUrl Domain name of the api without trailing slash
+     * @internal param string $apiKey Api key provided by http://thetvdb.com
      */
     public function __construct($config)
     {
@@ -77,7 +86,8 @@ class Client
     /**
      * Get a language information
      *
-     * @param string $abbreviation
+     * @param string $abbreviation Shorthand name of the language
+     *
      * @return array
      * @throws \Exception
      */
@@ -106,9 +116,11 @@ class Client
     /**
      * Searches for tv serie based on series name
      *
-     * @var string $seriesName the show name to search for
+     * @param string $seriesName Name of the series to search for
+     * @param string $language   Language to fetch the results for
+     *
      * @return array
-     **/
+     */
     public function getSeries($seriesName, $language = self::DEFAULT_LANGUAGE)
     {
         $data = $this->fetchXml('GetSeries.php?seriesname=' . urlencode($seriesName) . '&language=' . $language);
@@ -122,11 +134,11 @@ class Client
     /**
      * Find a tv serie by the id from thetvdb.com
      *
-     * @var int $serieId
-     * @var string $language
+     * @param int    $serieId  ID of the serie
+     * @param string $language Language to fetch the results for
      *
-     * @return Show|false A serie object or false if not found
-     **/
+     * @return Serie|bool A serie object or false if not found
+     */
     public function getSerie($serieId, $language = self::DEFAULT_LANGUAGE)
     {
         $data = $this->fetchXml('series/' . $serieId . '/' . $language . '.xml');
@@ -139,6 +151,14 @@ class Client
      *
      * @param int $serieId
      * @return string
+     */
+
+    /**
+     * Fetches banners for a given series
+     *
+     * @param int $serieId ID of the serie
+     *
+     * @return array
      */
     public function getBanners($serieId)
     {
@@ -157,6 +177,17 @@ class Client
      * @param int $serieId
      * @param string $language
      * @param string $format
+     * @return array
+     * @throws \ErrorException
+     */
+
+    /**
+     * Fetches all episodes for a serie
+     *
+     * @param int    $serieId  ID of the serie
+     * @param string $language Language to get the episodes in
+     * @param string $format   Format to retrieve the episodes in
+     *
      * @return array
      * @throws \ErrorException
      */
@@ -182,13 +213,13 @@ class Client
     /**
      * Get a specific episode by season and episode number
      *
-     * @var int $serieId required the id of the serie
-     * @var int $season required the season number
-     * @var int $episode required the episode number
-     * @var string $language language abbreviation
+     * @param int    $serieId  ID of the series
+     * @param int    $season   Number of the season
+     * @param int    $episode  Number of the episode
+     * @param string $language Language to get the episodes in
      *
      * @return Episode
-     **/
+     */
     public function getEpisode($serieId, $season, $episode, $language = self::DEFAULT_LANGUAGE)
     {
         $data = $this->fetchXml('series/' . $serieId . '/default/' . $season . '/' . $episode . '/' . $language . '.xml');
@@ -199,10 +230,11 @@ class Client
     /**
      * Get a specific episode by his id
      *
-     * @var int $episodeId required the id of the episode
-     * @var string $language
+     * @param int    $episodeId ID of the episode
+     * @param string $language  Language to get the episodes in
+     *
      * @return Episode
-     **/
+     */
     public function getEpisodeById($episodeId, $language = self::DEFAULT_LANGUAGE)
     {
         $data = $this->fetchXml('episodes/' . $episodeId . '/' . $language . '.xml');
@@ -213,7 +245,8 @@ class Client
     /**
      * Get updates list based on previous time you got data
      *
-     * @param int $previousTime
+     * @param int $previousTime Time of the previous update, in UNIX Timestamp format
+     *
      * @return array
      */
     public function getUpdates($previousTime)
@@ -231,14 +264,15 @@ class Client
         return array('series' => $series, 'episodes' => $episodes);
     }
 
-
     /**
-     * Fetches data via curl and returns result
+     * Fetches XML data via curl and returns XML result
      *
-     * @access protected
-     * @param string $function The function used to fetch data in xml
-     * @return string The data
-     **/
+     * @param string $function Name of the function to execute
+     * @param array  $params   Array containing parameters
+     * @param string $method   Method to use, can be GET or POST
+     *
+     * @return \SimpleXMLElement
+     */
     protected function fetchXml($function, $params = array(), $method = self::GET)
     {
         if (strpos($function, '.php') > 0) { // no need of api key for php calls
@@ -255,12 +289,15 @@ class Client
     }
 
     /**
-     * Fetch data with curl
+     * Fetch data using curl
      *
-     * @param string $url
-     * @param array $params
-     * @param string $method
+     * @param string $url    URL to use while fetching
+     * @param array  $params Array of params to send along the request
+     * @param string $method Method to use
+     *
      * @return bool|string
+     *
+     * @throws \AxTvDb\Exception\CurlException
      */
     protected function fetch($url, array $params = array(), $method = self::GET)
     {
@@ -291,9 +328,10 @@ class Client
     /**
      * Convert xml string to SimpleXMLElement
      *
-     * @param string $data
+     * @param string $data String of retrieved data
+     *
      * @return \SimpleXMLElement
-     * @throws \ErrorException|\Exception
+     * @throws XmlException
      */
     protected function getXml($data)
     {
@@ -321,12 +359,19 @@ class Client
     }
 
     /**
-     * Get a list of mirrors available to fetchXml the data from the api
+     * Get a list of mirrors available to fetch data from the api
+     *
      * @return void
      */
     protected function getMirrors()
     {
-        $data = $this->fetch($this->baseUrl . '/api/' . $this->apiKey . '/mirrors.xml');
+        $data = $this->fetch(
+            $this->baseUrl .
+            '/api/' .
+            $this->apiKey .
+            '/mirrors.xml'
+        );
+
         $mirrors = $this->getXml($data);
 
         foreach ($mirrors->Mirror as $mirror) {
@@ -336,9 +381,11 @@ class Client
             if ($typeMask & self::MIRROR_TYPE_XML) {
                 $this->mirrors[self::MIRROR_TYPE_XML][] = $mirrorPath;
             }
+
             if ($typeMask & self::MIRROR_TYPE_BANNER) {
                 $this->mirrors[self::MIRROR_TYPE_BANNER][] = $mirrorPath;
             }
+
             if ($typeMask & self::MIRROR_TYPE_ZIP) {
                 $this->mirrors[self::MIRROR_TYPE_ZIP][] = $mirrorPath;
             }
@@ -348,22 +395,24 @@ class Client
     /**
      * Get a random mirror from the list of available mirrors
      *
-     * @param int $typeMask
+     * @param int $type Type of mirror to return
+     *
      * @return string
      * @access protected
      */
-    public function getMirror($typeMask = self::MIRROR_TYPE_XML)
+    protected function getMirror($type = self::MIRROR_TYPE_XML)
     {
         if (empty($this->mirrors)) {
             $this->getMirrors();
         }
-        return $this->mirrors[$typeMask][array_rand($this->mirrors[$typeMask], 1)];
+        return $this->mirrors[$type][array_rand($this->mirrors[$type], 1)];
 
     }
 
     /**
      * Get a list of languages available for the content of the api
-     * @return \SimpleXMLElement
+     *
+     * @return void
      */
     protected function getLanguages()
     {
@@ -381,9 +430,10 @@ class Client
     /**
      * Removes indexes from an array if they are zero length after trimming
      *
-     * @param array $array The array to remove empty indexes from
+     * @param array $array Array to process
+     *
      * @return array An array with all empty indexes removed
-     **/
+     */
     public static function removeEmptyIndexes($array)
     {
 
@@ -399,11 +449,23 @@ class Client
         return $array;
     }
 
+    /**
+     * Gets the module config
+     *
+     * @return array
+     */
     public function getConfig()
     {
         return $this->config;
     }
 
+    /**
+     * Sets the module config
+     *
+     * @param array $config Retrieved config
+     *
+     * @return void
+     */
     public function setConfig($config)
     {
         $this->config = $config;

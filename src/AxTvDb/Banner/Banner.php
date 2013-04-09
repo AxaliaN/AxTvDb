@@ -2,11 +2,17 @@
 
 namespace TvDb;
 
+use SimpleXMLElement;
+
 /**
  * Simple banner object
  *
- * @package TvDb
- * @author Jérôme Poskin <moinax@gmail.com>
+ * @category AxTvDb
+ * @package  AxTvDb\Banner
+ * @author   Jérôme Poskin <moinax@gmail.com>
+ * @author   Michel Maas <michel@michelmaas.com>
+ * @license  http://www.gnu.org/licenses/gpl.txt GNU GPLv3
+ * @link     https://github.com/AxaliaN/TvDb
  */
 class Banner
 {
@@ -70,10 +76,10 @@ class Banner
      * Constructor
      *
      * @access public
-     * @param SimpleXMLObject $data A simplexmlobject created from thetvdb.com's xml data for the tv serie banner
-     * @return void
-     **/
-    public function __construct($data)
+     * @param SimpleXMLElement $data A simplexmlobject created from thetvdb.com's xml data for the tv serie banner
+     * @return \TvDb\Banner
+     */
+    public function __construct(SimpleXMLElement $data)
     {
         $this->id = (int)$data->id;
         $this->path = (string)$data->BannerPath;

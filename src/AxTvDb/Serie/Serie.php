@@ -7,8 +7,12 @@ use AxTvDb\Client\Client;
 /**
  * Serie object
  *
- * @package TvDb
- * @author Jérôme Poskin <moinax@gmail.com>
+ * @category AxTvDb
+ * @package  AxTvDb\Serie
+ * @author   Jérôme Poskin <moinax@gmail.com>
+ * @author   Michel Maas <michel@michelmaas.com>
+ * @license  http://www.gnu.org/licenses/gpl.txt GNU GPLv3
+ * @link     https://github.com/AxaliaN/TvDb
  */
 class Serie
 {
@@ -38,7 +42,7 @@ class Serie
     public $overview;
 
     /**
-     * @var DateTime
+     * @var \DateTime
      */
     public $firstAired;
 
@@ -113,7 +117,7 @@ class Serie
     public $fanArt = '';
 
     /**
-     * @var DateTime
+     * @var \DateTime
      */
     public $lastUpdated;
 
@@ -126,13 +130,14 @@ class Serie
      * @var string
      */
     public $zap2ItId = '';
+
     /**
      * Constructor
      *
-     * @access public
-     * @param SimpleXMLObject $data A simplexmlobject created from thetvdb.com's xml data for the tv show
+     * @param $data SimpleXMLObject $data A simplexmlobject created from thetvdb.com's xml data for the tv show
+     *
      * @return void
-     **/
+     */
     public function __construct($data)
     {
         $this->id = (int)$data->id;

@@ -1,20 +1,25 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: Michel
- * Date: 5-4-13
- * Time: 20:46
- * To change this template use File | Settings | File Templates.
- */
 
 namespace AxTvDb;
 
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 
+/**
+ * Service factory to instantiate the AxTvDb Client
+ *
+ * @category AxTvDb
+ * @package  AxTvDb\Module
+ * @author   Michel Maas <michel@michelmaas.com>
+ * @license  http://www.gnu.org/licenses/gpl.txt GNU GPLv3
+ * @link     https://github.com/AxaliaN/TvDb
+ */
 class Module implements ConfigProviderInterface
 {
+
     /**
-     * {@inheritDoc}
+     * Gets the module's config
+     *
+     * @return array|mixed|\Traversable
      */
     public function getConfig()
     {
