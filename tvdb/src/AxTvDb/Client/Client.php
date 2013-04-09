@@ -1,8 +1,8 @@
 <?php
 
-namespace TvDb;
+namespace AxTvDb\Client;
 
-use TvDb\CurlException;
+use AxTvDb\Exception\CurlException;
 
 /**
  * Base TVDB library class, provides universal functions and variables
@@ -56,7 +56,7 @@ class Client
      * @param string $baseUrl Domain name of the api without trailing slash
      * @param string $apiKey Api key provided by http://thetvdb.com
      */
-    public function __construct($baseUrl, $apiKey)
+    public function __construct()
     {
         $this->baseUrl = $baseUrl;
         $this->apiKey = $apiKey;

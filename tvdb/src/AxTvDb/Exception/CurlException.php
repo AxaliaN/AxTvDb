@@ -1,6 +1,6 @@
 <?php
 
-namespace TvDb;
+namespace AxTvDb\Exception;
 
 
 class CurlException extends \Exception

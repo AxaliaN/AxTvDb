@@ -1,6 +1,6 @@
 <?php
 
-namespace TvDb;
+namespace AxTvDb\Serie;
 
 /**
  * Serie object

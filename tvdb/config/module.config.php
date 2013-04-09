@@ -1,11 +1,16 @@
 <?php
 
 return array(
-    'moinax' => array(
+    'axalian' => array(
         'tvdb' => array(
             'client' => array(
-                'class' => 'TvDb\Client',
+                'class' => 'AxTvDb\Client\Client',
             ),
         ),
+    ),
+    'service_manager' => array(
+        'factories' => array(
+            'AxTvDb\Client\Client' => 'AxTvDb\ServiceFactory\ClientServiceFactory',
+        )
     ),
 );

@@ -1,6 +1,6 @@
 <?php
 
-namespace TvDb;
+namespace AxTvDb\Episode;
 
 /**
  * Episode class. Class for single tv episode for a TV serie.
