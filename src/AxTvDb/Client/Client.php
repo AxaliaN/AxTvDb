@@ -6,7 +6,9 @@ use AxTvDb\Episode\Episode;
 use AxTvDb\Exception\CurlException;
 use AxTvDb\Exception\XmlException;
 use AxTvDb\Serie\Serie;
+use AxTvDb\Utility\XmlParser;
 use TvDb\Banner;
+use ZendTest\Di\TestAsset\ConstructorInjection\X;
 
 /**
  * Base TVDB library class, provides universal functions and variables
@@ -96,6 +98,7 @@ class Client
         if (empty($this->languages)) {
             $this->getLanguages();
         }
+
         if (!isset($this->languages[$abbreviation])) {
             throw new \Exception('This language is not available');
         }
@@ -123,11 +126,15 @@ class Client
      */
     public function getSeries($seriesName, $language = self::DEFAULT_LANGUAGE)
     {
+        /** @var $data \SimpleXmlElement */
         $data = $this->fetchXml('GetSeries.php?seriesname=' . urlencode($seriesName) . '&language=' . $language);
+
         $series = array();
+
         foreach ($data->Series as $serie) {
             $series[] = new Serie($serie);
         }
+
         return $series;
     }
 
@@ -172,16 +179,6 @@ class Client
     }
 
     /**
-     * Get all episodes for a serie
-     *
-     * @param int $serieId
-     * @param string $language
-     * @param string $format
-     * @return array
-     * @throws \ErrorException
-     */
-
-    /**
      * Fetches all episodes for a serie
      *
      * @param int    $serieId  ID of the serie
@@ -202,11 +199,15 @@ class Client
                 throw new \ErrorException('Unsupported format');
                 break;
         }
+
         $serie = new Serie($data->Series);
+
         $episodes = array();
+
         foreach ($data->Episode as $episode) {
             $episodes[(int)$episode->id] = new Episode($episode);
         }
+
         return array('serie' => $serie, 'episodes' => $episodes);
     }
 
@@ -302,6 +303,7 @@ class Client
     protected function fetch($url, array $params = array(), $method = self::GET)
     {
         $ch = curl_init($url);
+
         curl_setopt($ch, CURLOPT_HEADER, 1);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
@@ -315,6 +317,7 @@ class Client
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
         $data = substr($response, $headerSize);
+
         curl_close($ch);
 
         if ($httpCode != 200) {
@@ -322,40 +325,6 @@ class Client
         }
 
         return $data;
-
-    }
-
-    /**
-     * Convert xml string to SimpleXMLElement
-     *
-     * @param string $data String of retrieved data
-     *
-     * @return \SimpleXMLElement
-     * @throws XmlException
-     */
-    protected function getXml($data)
-    {
-        if (extension_loaded('libxml')) {
-            libxml_use_internal_errors(true);
-        }
-
-        $simpleXml = simplexml_load_string($data);
-        if (!$simpleXml) {
-            if (extension_loaded('libxml')) {
-                $xmlErrors = libxml_get_errors();
-                $errors = array();
-                foreach ($xmlErrors as $error) {
-                    $errors[] = sprintf('Error in file %s on line %d with message : %s', $error->file, $error->line, $error->message);
-                }
-                if (count($errors) > 0) {
-
-                    throw new XmlException(implode("\n", $errors));
-                }
-            }
-            throw new XmlException('Xml file cound not be loaded');
-        }
-
-        return $simpleXml;
     }
 
     /**
@@ -365,14 +334,10 @@ class Client
      */
     protected function getMirrors()
     {
-        $data = $this->fetch(
-            $this->baseUrl .
-            '/api/' .
-            $this->apiKey .
-            '/mirrors.xml'
-        );
+        $data = $this->fetch($this->baseUrl . '/api/' . $this->apiKey . '/mirrors.xml');
 
-        $mirrors = $this->getXml($data);
+        $xmlParser = new XmlParser();
+        $mirrors = $xmlParser->getXml($data);
 
         foreach ($mirrors->Mirror as $mirror) {
             $typeMask = (int)$mirror->typemask;
@@ -425,28 +390,6 @@ class Client
                 'id' => (int)$language->id,
             );
         }
-    }
-
-    /**
-     * Removes indexes from an array if they are zero length after trimming
-     *
-     * @param array $array Array to process
-     *
-     * @return array An array with all empty indexes removed
-     */
-    public static function removeEmptyIndexes($array)
-    {
-
-        $length = count($array);
-
-        for ($i = $length - 1; $i >= 0; $i--) {
-            if (trim($array[$i]) == '') {
-                unset($array[$i]);
-            }
-        }
-
-        sort($array);
-        return $array;
     }
 
     /**

@@ -126,17 +126,17 @@ class Episode
             $this->season = (int)$data->SeasonNumber;
         }
 
-        $this->directors = (array)Client::removeEmptyIndexes(explode('|', (string)$data->Director));
+        $this->directors = (array)ArrayUtility::removeEmptyIndexes(explode('|', (string)$data->Director));
         $this->name = (string)$data->EpisodeName;
         $this->firstAired = (string)$data->FirstAired !== '' ? new \DateTime((string)$data->FirstAired) : null;
-        $this->guestStars = Client::removeEmptyIndexes(explode('|', (string)$data->GuestStars));
+        $this->guestStars = ArrayUtility::removeEmptyIndexes(explode('|', (string)$data->GuestStars));
         $this->imdbId = (string)$data->IMDB_ID;
         $this->language = (string)$data->Language;
         $this->overview = (string)$data->Overview;
         $this->rating = (string)$data->Rating;
         $this->ratingCount = (int)$data->RatingCount;
         $this->lastUpdated = \DateTime::createFromFormat('U', (int)$data->lastupdated);
-        $this->writers = (array)Client::removeEmptyIndexes(explode('|', (string)$data->Writer));
+        $this->writers = (array)ArrayUtility::removeEmptyIndexes(explode('|', (string)$data->Writer));
         $this->thumbnail = (string)$data->filename;
         $this->seasonId = (int)$data->seasonid;
         $this->serieId = (int)$data->seriesid;
