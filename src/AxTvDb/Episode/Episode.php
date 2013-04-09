@@ -3,6 +3,7 @@
 namespace AxTvDb\Episode;
 
 use AxTvDb\Client\Client;
+use AxTvDb\Utility\ArrayUtils;
 use SimpleXMLElement;
 
 /**
@@ -126,10 +127,10 @@ class Episode
             $this->season = (int)$data->SeasonNumber;
         }
 
-        $this->directors = (array)ArrayUtility::removeEmptyIndexes(explode('|', (string)$data->Director));
+        $this->directors = (array)ArrayUtils::removeEmptyIndexes(explode('|', (string)$data->Director));
         $this->name = (string)$data->EpisodeName;
         $this->firstAired = (string)$data->FirstAired !== '' ? new \DateTime((string)$data->FirstAired) : null;
-        $this->guestStars = ArrayUtility::removeEmptyIndexes(explode('|', (string)$data->GuestStars));
+        $this->guestStars = ArrayUtils::removeEmptyIndexes(explode('|', (string)$data->GuestStars));
         $this->imdbId = (string)$data->IMDB_ID;
         $this->language = (string)$data->Language;
         $this->overview = (string)$data->Overview;

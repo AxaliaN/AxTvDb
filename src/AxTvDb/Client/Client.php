@@ -6,6 +6,7 @@ use AxTvDb\Episode\Episode;
 use AxTvDb\Exception\CurlException;
 use AxTvDb\Exception\XmlException;
 use AxTvDb\Serie\Serie;
+use AxTvDb\Utility\CurlDownloader;
 use AxTvDb\Utility\XmlParser;
 use TvDb\Banner;
 use ZendTest\Di\TestAsset\ConstructorInjection\X;
@@ -22,9 +23,6 @@ use ZendTest\Di\TestAsset\ConstructorInjection\X;
  */
 class Client
 {
-    const POST = 'post';
-    const GET = 'get';
-
     const MIRROR_TYPE_XML = 1;
     const MIRROR_TYPE_BANNER = 2;
     const MIRROR_TYPE_ZIP = 4;
@@ -274,7 +272,7 @@ class Client
      *
      * @return \SimpleXMLElement
      */
-    protected function fetchXml($function, $params = array(), $method = self::GET)
+    protected function fetchXml($function, $params = array(), $method = CurlDownloader::GET)
     {
         if (strpos($function, '.php') > 0) { // no need of api key for php calls
             $url = $this->getMirror(self::MIRROR_TYPE_XML) . '/api/' . $function;
@@ -282,50 +280,13 @@ class Client
             $url = $this->getMirror(self::MIRROR_TYPE_XML) . '/api/' . $this->apiKey . '/' . $function;
         }
 
-        $data = $this->fetch($url, $params, $method);
+        $data = CurlDownloader::fetch($url, $params, $method);
 
-        $simpleXml = $this->getXml($data);
+        $simpleXml = XmlParser::getXml($data);
 
         return $simpleXml;
     }
 
-    /**
-     * Fetch data using curl
-     *
-     * @param string $url    URL to use while fetching
-     * @param array  $params Array of params to send along the request
-     * @param string $method Method to use
-     *
-     * @return bool|string
-     *
-     * @throws \AxTvDb\Exception\CurlException
-     */
-    protected function fetch($url, array $params = array(), $method = self::GET)
-    {
-        $ch = curl_init($url);
-
-        curl_setopt($ch, CURLOPT_HEADER, 1);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-        if ($method == self::POST) {
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
-        }
-
-        $response = curl_exec($ch);
-
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        $headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-        $data = substr($response, $headerSize);
-
-        curl_close($ch);
-
-        if ($httpCode != 200) {
-            throw new CurlException(sprintf('Cannot fetch %s', $url), $httpCode);
-        }
-
-        return $data;
-    }
 
     /**
      * Get a list of mirrors available to fetch data from the api
@@ -334,10 +295,10 @@ class Client
      */
     protected function getMirrors()
     {
-        $data = $this->fetch($this->baseUrl . '/api/' . $this->apiKey . '/mirrors.xml');
 
-        $xmlParser = new XmlParser();
-        $mirrors = $xmlParser->getXml($data);
+        $data = CurlDownloader::fetch($this->baseUrl . '/api/' . $this->apiKey . '/mirrors.xml');
+
+        $mirrors = XmlParser::getXml($data);
 
         foreach ($mirrors->Mirror as $mirror) {
             $typeMask = (int)$mirror->typemask;

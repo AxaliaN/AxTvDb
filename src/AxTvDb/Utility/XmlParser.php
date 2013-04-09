@@ -20,7 +20,7 @@ class XmlParser {
      * @return \SimpleXMLElement
      * @throws XmlException
      */
-    public function getXml($data)
+    public static function getXml($data)
     {
         if (extension_loaded('libxml')) {
             libxml_use_internal_errors(true);
