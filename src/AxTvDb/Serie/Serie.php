@@ -19,126 +19,126 @@ class Serie
     /**
      * @var int
      */
-    public $id;
+    protected $id;
 
     /**
      * @var string
      */
-    public $language;
+    protected $language;
 
     /**
      * @var string
      */
-    public $name;
+    protected $name;
 
     /**
      * @var string
      */
-    public $banner;
+    protected $banner;
 
     /**
      * @var string
      */
-    public $overview;
+    protected $overview;
 
     /**
      * @var \DateTime
      */
-    public $firstAired;
+    protected $firstAired;
 
     /**
      * @var string
      */
-    public $imdbId;
+    protected $imdbId;
 
     /**
      * @var array
      */
-    public $actors = array();
+    protected $actors = array();
 
     /**
      * @var string
      */
-    public $airsDayOfWeek = '';
+    protected $airsDayOfWeek = '';
 
     /**
      * @var string
      */
-    public $airsTime = '';
+    protected $airsTime = '';
 
     /**
      * @var string
      */
-    public $contentRating = '';
+    protected $contentRating = '';
 
     /**
      * @var array
      */
-    public $genres = array();
+    protected $genres = array();
 
     /**
      * @var string
      */
-    public $network = '';
+    protected $network = '';
 
     /**
      * @var string
      */
-    public $rating = '';
+    protected $rating = '';
 
     /**
      * @var int
      */
-    public $ratingCount = 0;
+    protected $ratingCount = 0;
 
     /**
      * @var int
      */
-    public $runtime = 0;
+    protected $runtime = 0;
 
     /**
      * @var string
      */
-    public $status = '';
-
-    /**
-     * @var DateTime
-     */
-    public $added;
-
-    /**
-     * @var int
-     */
-    public $addedBy;
-
-    /**
-     * @var string
-     */
-    public $fanArt = '';
+    protected $status = '';
 
     /**
      * @var \DateTime
      */
-    public $lastUpdated;
+    protected $added;
+
+    /**
+     * @var int
+     */
+    protected $addedBy;
 
     /**
      * @var string
      */
-    public $poster = '';
+    protected $fanArt = '';
+
+    /**
+     * @var \DateTime
+     */
+    protected $lastUpdated;
 
     /**
      * @var string
      */
-    public $zap2ItId = '';
+    protected $poster = '';
+
+    /**
+     * @var string
+     */
+    protected $zap2ItId = '';
 
     /**
      * Constructor
      *
-     * @param $data SimpleXMLObject $data A simplexmlobject created from thetvdb.com's xml data for the tv show
+     * @param $data \SimpleXMLElement $data A simplexmlobject created from thetvdb.com's xml data for the tv show
      *
-     * @return void
+     * @return Serie
      */
-    public function __construct($data)
+    public function __construct(\SimpleXMLElement $data)
     {
         $this->id = (int)$data->id;
         $this->language = (string)$data->Language;
@@ -162,5 +162,373 @@ class Serie
         $this->lastUpdated = \DateTime::createFromFormat('U', (int)$data->lastupdated);
         $this->poster = (string)$data->poster;
         $this->zap2ItId = (string)$data->zap2it_id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    /**
+     * @param string $language
+     */
+    public function setLanguage($language)
+    {
+        $this->language = $language;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBanner()
+    {
+        return $this->banner;
+    }
+
+    /**
+     * @param string $banner
+     */
+    public function setBanner($banner)
+    {
+        $this->banner = $banner;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOverview()
+    {
+        return $this->overview;
+    }
+
+    /**
+     * @param string $overview
+     */
+    public function setOverview($overview)
+    {
+        $this->overview = $overview;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getFirstAired()
+    {
+        return $this->firstAired;
+    }
+
+    /**
+     * @param \DateTime $firstAired
+     */
+    public function setFirstAired($firstAired)
+    {
+        $this->firstAired = $firstAired;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImdbId()
+    {
+        return $this->imdbId;
+    }
+
+    /**
+     * @param string $imdbId
+     */
+    public function setImdbId($imdbId)
+    {
+        $this->imdbId = $imdbId;
+    }
+
+    /**
+     * @return array
+     */
+    public function getActors()
+    {
+        return $this->actors;
+    }
+
+    /**
+     * @param array $actors
+     */
+    public function setActors($actors)
+    {
+        $this->actors = $actors;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAirsDayOfWeek()
+    {
+        return $this->airsDayOfWeek;
+    }
+
+    /**
+     * @param string $airsDayOfWeek
+     */
+    public function setAirsDayOfWeek($airsDayOfWeek)
+    {
+        $this->airsDayOfWeek = $airsDayOfWeek;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAirsTime()
+    {
+        return $this->airsTime;
+    }
+
+    /**
+     * @param string $airsTime
+     */
+    public function setAirsTime($airsTime)
+    {
+        $this->airsTime = $airsTime;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContentRating()
+    {
+        return $this->contentRating;
+    }
+
+    /**
+     * @param string $contentRating
+     */
+    public function setContentRating($contentRating)
+    {
+        $this->contentRating = $contentRating;
+    }
+
+    /**
+     * @return array
+     */
+    public function getGenres()
+    {
+        return $this->genres;
+    }
+
+    /**
+     * @param array $genres
+     */
+    public function setGenres($genres)
+    {
+        $this->genres = $genres;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNetwork()
+    {
+        return $this->network;
+    }
+
+    /**
+     * @param string $network
+     */
+    public function setNetwork($network)
+    {
+        $this->network = $network;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRating()
+    {
+        return $this->rating;
+    }
+
+    /**
+     * @param string $rating
+     */
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRatingCount()
+    {
+        return $this->ratingCount;
+    }
+
+    /**
+     * @param int $ratingCount
+     */
+    public function setRatingCount($ratingCount)
+    {
+        $this->ratingCount = $ratingCount;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRuntime()
+    {
+        return $this->runtime;
+    }
+
+    /**
+     * @param int $runtime
+     */
+    public function setRuntime($runtime)
+    {
+        $this->runtime = $runtime;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getAdded()
+    {
+        return $this->added;
+    }
+
+    /**
+     * @param \DateTime $added
+     */
+    public function setAdded($added)
+    {
+        $this->added = $added;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAddedBy()
+    {
+        return $this->addedBy;
+    }
+
+    /**
+     * @param int $addedBy
+     */
+    public function setAddedBy($addedBy)
+    {
+        $this->addedBy = $addedBy;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFanArt()
+    {
+        return $this->fanArt;
+    }
+
+    /**
+     * @param string $fanArt
+     */
+    public function setFanArt($fanArt)
+    {
+        $this->fanArt = $fanArt;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLastUpdated()
+    {
+        return $this->lastUpdated;
+    }
+
+    /**
+     * @param \DateTime $lastUpdated
+     */
+    public function setLastUpdated($lastUpdated)
+    {
+        $this->lastUpdated = $lastUpdated;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPoster()
+    {
+        return $this->poster;
+    }
+
+    /**
+     * @param string $poster
+     */
+    public function setPoster($poster)
+    {
+        $this->poster = $poster;
+    }
+
+    /**
+     * @return string
+     */
+    public function getZap2ItId()
+    {
+        return $this->zap2ItId;
+    }
+
+    /**
+     * @param string $zap2ItId
+     */
+    public function setZap2ItId($zap2ItId)
+    {
+        $this->zap2ItId = $zap2ItId;
     }
 }

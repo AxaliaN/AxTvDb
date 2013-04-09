@@ -21,92 +21,94 @@ class Episode
     /**
      * @var int
      */
-    public $id = 0;
+    protected $id = 0;
 
     /**
      * @var int
      */
-    public $number = 0;
+    protected $number = 0;
 
     /**
      * @var int
      */
-    public $season = 0;
+    protected $season = 0;
 
     /**
      * @var array
      */
-    public $directors = array();
+    protected $directors = array();
 
     /**
      * @var array
      */
-    public $guestStars = array();
+    protected $guestStars = array();
 
     /**
      * @var array
      */
-    public $writers = array();
+    protected $writers = array();
 
     /**
      * @var string
      */
-    public $name = '';
+    protected $name = '';
 
     /**
      * @var \DateTime
      */
-    public $firstAired;
+    protected $firstAired;
 
     /**
      * @var string
      */
-    public $imdbId = '';
+    protected $imdbId = '';
 
     /**
      * @var string
      */
-    public $language = Client::DEFAULT_LANGUAGE;
+    protected $language = Client::DEFAULT_LANGUAGE;
 
     /**
      * @var string
      */
-    public $overview = '';
+    protected $overview = '';
 
     /**
      * @var string
      */
-    public $rating = '';
+    protected $rating = '';
 
     /**
      * @var int
      */
-    public $ratingCount = 0;
+    protected $ratingCount = 0;
 
     /**
      * @var \DateTime
      */
-    public $lastUpdated;
+    protected $lastUpdated;
 
     /**
      * @var int
      */
-    public $seasonId = 0;
+    protected $seasonId = 0;
 
     /**
      * @var int
      */
-    public $serieId = 0;
+    protected $serieId = 0;
 
     /**
      * @var string
      */
-    public $thumbnail = '';
+    protected $thumbnail = '';
 
     /**
      * Constructor
      *
      * @param SimpleXMLElement $data Retrieved SimpleXMLElement
+     *
+     * @return Episode
      */
     public function __construct(SimpleXMLElement $data)
     {
@@ -138,5 +140,261 @@ class Episode
         $this->thumbnail = (string)$data->filename;
         $this->seasonId = (int)$data->seasonid;
         $this->serieId = (int)$data->seriesid;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumber()
+    {
+        return $this->number;
+    }
+
+    /**
+     * @param int $number
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSeason()
+    {
+        return $this->season;
+    }
+
+    /**
+     * @param int $season
+     */
+    public function setSeason($season)
+    {
+        $this->season = $season;
+    }
+
+    /**
+     * @return array
+     */
+    public function getDirectors()
+    {
+        return $this->directors;
+    }
+
+    /**
+     * @param array $directors
+     */
+    public function setDirectors($directors)
+    {
+        $this->directors = $directors;
+    }
+
+    /**
+     * @return array
+     */
+    public function getGuestStars()
+    {
+        return $this->guestStars;
+    }
+
+    /**
+     * @param array $guestStars
+     */
+    public function setGuestStars($guestStars)
+    {
+        $this->guestStars = $guestStars;
+    }
+
+    /**
+     * @return array
+     */
+    public function getWriters()
+    {
+        return $this->writers;
+    }
+
+    /**
+     * @param array $writers
+     */
+    public function setWriters($writers)
+    {
+        $this->writers = $writers;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImdbId()
+    {
+        return $this->imdbId;
+    }
+
+    /**
+     * @param string $imdbId
+     */
+    public function setImdbId($imdbId)
+    {
+        $this->imdbId = $imdbId;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getFirstAired()
+    {
+        return $this->firstAired;
+    }
+
+    /**
+     * @param \DateTime $firstAired
+     */
+    public function setFirstAired($firstAired)
+    {
+        $this->firstAired = $firstAired;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    /**
+     * @param string $language
+     */
+    public function setLanguage($language)
+    {
+        $this->language = $language;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOverview()
+    {
+        return $this->overview;
+    }
+
+    /**
+     * @param string $overview
+     */
+    public function setOverview($overview)
+    {
+        $this->overview = $overview;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRating()
+    {
+        return $this->rating;
+    }
+
+    /**
+     * @param string $rating
+     */
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRatingCount()
+    {
+        return $this->ratingCount;
+    }
+
+    /**
+     * @param int $ratingCount
+     */
+    public function setRatingCount($ratingCount)
+    {
+        $this->ratingCount = $ratingCount;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLastUpdated()
+    {
+        return $this->lastUpdated;
+    }
+
+    /**
+     * @param \DateTime $lastUpdated
+     */
+    public function setLastUpdated($lastUpdated)
+    {
+        $this->lastUpdated = $lastUpdated;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSerieId()
+    {
+        return $this->serieId;
+    }
+
+    /**
+     * @param int $serieId
+     */
+    public function setSerieId($serieId)
+    {
+        $this->serieId = $serieId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getThumbnail()
+    {
+        return $this->thumbnail;
+    }
+
+    /**
+     * @param string $thumbnail
+     */
+    public function setThumbnail($thumbnail)
+    {
+        $this->thumbnail = $thumbnail;
     }
 }
