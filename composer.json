@@ -14,6 +14,6 @@
         "zendframework/zendframework": "2.*"
     },
     "autoload": {
-        "psr-0": { "AxTvDb\\Client": "src/AxTvDb/Client" }
+        "psr-0": { "AxTvDb": "src/" }
     }
 }
