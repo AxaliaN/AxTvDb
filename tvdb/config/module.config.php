@@ -4,7 +4,8 @@ return array(
     'axalian' => array(
         'tvdb' => array(
             'client' => array(
-                'class' => 'AxTvDb\Client\Client',
+                'baseUrl' => 'http://thetvdb.com',
+                'apiKey' => '490450651F3A7C38'
             ),
         ),
     ),

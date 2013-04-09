@@ -3,6 +3,9 @@
 namespace AxTvDb\Client;
 
 use AxTvDb\Exception\CurlException;
+use AxTvDb\Exception\XmlException;
+use AxTvDb\Serie\Serie;
+use TvDb\Banner;
 
 /**
  * Base TVDB library class, provides universal functions and variables
@@ -53,13 +56,22 @@ class Client
     protected $languages = array();
 
     /**
+     * Contains module config
+     *
+     * @var array
+     */
+    protected $config = array();
+
+    /**
      * @param string $baseUrl Domain name of the api without trailing slash
      * @param string $apiKey Api key provided by http://thetvdb.com
      */
-    public function __construct()
+    public function __construct($config)
     {
-        $this->baseUrl = $baseUrl;
-        $this->apiKey = $apiKey;
+        $this->config = $config;
+
+        $this->baseUrl = $config['client']['baseUrl'];
+        $this->apiKey = $config['client']['apiKey'];
     }
 
     /**
@@ -385,5 +397,15 @@ class Client
 
         sort($array);
         return $array;
+    }
+
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
+    public function setConfig($config)
+    {
+        $this->config = $config;
     }
 }

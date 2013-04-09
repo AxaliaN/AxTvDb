@@ -11,7 +11,7 @@ class ClientServiceFactory implements FactoryInterface {
     public function createService(ServiceLocatorInterface $serviceLocator) {
         $config = $serviceLocator->get('Config');
 
-        return new Client($config['axtvdb']);
+        return new Client($config['axalian']['tvdb']);
     }
 
 }

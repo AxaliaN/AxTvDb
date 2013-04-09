@@ -2,6 +2,8 @@
 
 namespace AxTvDb\Serie;
 
+use AxTvDb\Client\Client;
+
 /**
  * Serie object
  *
@@ -155,6 +157,5 @@ class Serie
         $this->lastUpdated = \DateTime::createFromFormat('U', (int)$data->lastupdated);
         $this->poster = (string)$data->poster;
         $this->zap2ItId = (string)$data->zap2it_id;
-
     }
 }
