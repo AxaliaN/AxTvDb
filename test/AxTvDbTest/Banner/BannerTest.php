@@ -23,19 +23,20 @@ class BannerTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $xmlData =  "<Banner>" .
-                        "<id>876076</id>".
-                        "<BannerPath>fanart/original/80348-49.jpg</BannerPath>".
-                        "<BannerType>fanart</BannerType>".
-                        "<BannerType2>1920x1080</BannerType2>".
-                        "<Colors>|81,81,81|15,15,15|201,226,246|</Colors>".
-                        "<Language>de</Language>".
-                        "<Rating>6.6667</Rating>".
-                        "<RatingCount>6</RatingCount>".
-                        "<SeriesName>false</SeriesName>".
-                        "<ThumbnailPath>_cache/fanart/original/80348-49.jpg</ThumbnailPath>".
-                        "<VignettePath>fanart/vignette/80348-49.jpg</VignettePath>".
-                    "</Banner>";
+        $xmlData =  '<?xml version="1.0" encoding="UTF-8" ?>
+                    <Banner>
+                        <id>876076</id>
+                        <BannerPath>fanart/original/80348-49.jpg</BannerPath>
+                        <BannerType>fanart</BannerType>
+                        <BannerType2>1920x1080</BannerType2>
+                        <Colors>|81,81,81|15,15,15|201,226,246|</Colors>
+                        <Language>de</Language>
+                        <Rating>6.6667</Rating>
+                        <RatingCount>6</RatingCount>
+                        <SeriesName>false</SeriesName>
+                        <ThumbnailPath>_cache/fanart/original/80348-49.jpg</ThumbnailPath>
+                        <VignettePath>fanart/vignette/80348-49.jpg</VignettePath>
+                    </Banner>';
 
         $data = new SimpleXMLElement($xmlData);
 
@@ -45,7 +46,6 @@ class BannerTest extends PHPUnit_Framework_TestCase
     public function testIfBannerSetupCorrectly()
     {
         $this->assertEquals(876076, $this->banner->getId());
-        $this->assertEquals('fanart/original/80348-49.jpg', $this->banner->getPath());
         $this->assertEquals('fanart/original/80348-49.jpg', $this->banner->getPath());
         $this->assertEquals('fanart', $this->banner->getType());
         $this->assertEquals('1920x1080', $this->banner->getType2());

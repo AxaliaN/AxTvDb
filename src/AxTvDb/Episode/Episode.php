@@ -105,6 +105,51 @@ class Episode
     protected $thumbnail = '';
 
     /**
+     * @var int
+     */
+    protected $dvdChapter;
+
+    /**
+     * @var int
+     */
+    protected $dvdDiscId;
+
+    /**
+     * @var int
+     */
+    protected $dvdEpisodeNumber;
+
+    /**
+     * @var int
+     */
+    protected $dvdSeason;
+
+    /**
+     * @var string
+     */
+    protected $productionCode;
+
+    /**
+     * @var int
+     */
+    protected $absoluteNumber;
+
+    /**
+     * @var int
+     */
+    protected $airsAfterSeason = '';
+
+    /**
+     * @var int
+     */
+    protected $airsBeforeEpisode = '';
+
+    /**
+     * @var int
+     */
+    protected $airsBeforeSeason = '';
+
+    /**
      * Constructor
      *
      * @param SimpleXMLElement $data Retrieved SimpleXMLElement
@@ -113,34 +158,43 @@ class Episode
      */
     public function __construct(SimpleXMLElement $data)
     {
-        $this->id = (int)$data->id;
+        $this->setId((int)$data->id);
 
         if (isset($data->Combined_episodenumber)) {
-            $this->number = (int)$data->Combined_episodenumber;
+            $this->setNumber((int)$data->Combined_episodenumber);
         } else {
-            $this->number = (int)$data->EpisodeNumber;
+            $this->setNumber((int)$data->EpisodeNumber);
         }
 
-        if (isset($data->Comined_season)) {
-            $this->season = (int)$data->Combined_season;
+        if (isset($data->Combined_season)) {
+            $this->setSeason((int)$data->Combined_season);
         } else {
-            $this->season = (int)$data->SeasonNumber;
+            $this->setSeason((int)$data->SeasonNumber);
         }
 
-        $this->directors = (array)ArrayUtils::removeEmptyIndexes(explode('|', (string)$data->Director));
-        $this->name = (string)$data->EpisodeName;
-        $this->firstAired = (string)$data->FirstAired !== '' ? new \DateTime((string)$data->FirstAired) : null;
-        $this->guestStars = ArrayUtils::removeEmptyIndexes(explode('|', (string)$data->GuestStars));
-        $this->imdbId = (string)$data->IMDB_ID;
-        $this->language = (string)$data->Language;
-        $this->overview = (string)$data->Overview;
-        $this->rating = (string)$data->Rating;
-        $this->ratingCount = (int)$data->RatingCount;
-        $this->lastUpdated = \DateTime::createFromFormat('U', (int)$data->lastupdated);
-        $this->writers = (array)ArrayUtility::removeEmptyIndexes(explode('|', (string)$data->Writer));
-        $this->thumbnail = (string)$data->filename;
-        $this->seasonId = (int)$data->seasonid;
-        $this->serieId = (int)$data->seriesid;
+        $this->setDirectors((array)ArrayUtils::removeEmptyIndexes(explode('|', (string)$data->Director)));
+        $this->setName((string)$data->EpisodeName);
+        $this->setFirstAired((string)$data->FirstAired !== '' ? new \DateTime((string)$data->FirstAired) : null);
+        $this->setGuestStars((array)ArrayUtils::removeEmptyIndexes(explode('|', (string)$data->GuestStars)));
+        $this->setImdbId((string)$data->IMDB_ID);
+        $this->setLanguage((string)$data->Language);
+        $this->setOverview((string)$data->Overview);
+        $this->setRating((string)$data->Rating);
+        $this->setRatingCount((int)$data->RatingCount);
+        $this->setLastUpdated(\DateTime::createFromFormat('U', (int)$data->lastupdated));
+        $this->setWriters((array)ArrayUtils::removeEmptyIndexes(explode('|', (string)$data->Writer)));
+        $this->setThumbnail((string)$data->filename);
+        $this->setSeasonId((int)$data->seasonid);
+        $this->setSerieId((int)$data->seriesid);
+        $this->setDvdChapter((int)$data->DVD_chapter);
+        $this->setDvdDiscId((int)$data->DVD_discid);
+        $this->setDvdEpisodeNumber((int)$data->DVD_episodenumber);
+        $this->setDvdSeason((int)$data->DVD_season);
+        $this->setProductionCode((int)$data->ProductionCode);
+        $this->setAbsoluteNumber((int)$data->absolute_number);
+        $this->setAirsAfterSeason((int)$data->airsafter_season);
+        $this->setAirsBeforeEpisode((int)$data->airsbefore_episode);
+        $this->setAirsBeforeSeason((int)$data->airsbefore_season);
     }
 
     /**
@@ -397,5 +451,165 @@ class Episode
     public function setThumbnail($thumbnail)
     {
         $this->thumbnail = $thumbnail;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDvdChapter()
+    {
+        return $this->dvdChapter;
+    }
+
+    /**
+     * @param int $dvdChapter
+     */
+    public function setDvdChapter($dvdChapter)
+    {
+        $this->dvdChapter = $dvdChapter;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDvdDiscId()
+    {
+        return $this->dvdDiscId;
+    }
+
+    /**
+     * @param int $dvdDiscId
+     */
+    public function setDvdDiscId($dvdDiscId)
+    {
+        $this->dvdDiscId = $dvdDiscId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDvdEpisodeNumber()
+    {
+        return $this->dvdEpisodeNumber;
+    }
+
+    /**
+     * @param int $dvdEpisodeNumber
+     */
+    public function setDvdEpisodeNumber($dvdEpisodeNumber)
+    {
+        $this->dvdEpisodeNumber = $dvdEpisodeNumber;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDvdSeason()
+    {
+        return $this->dvdSeason;
+    }
+
+    /**
+     * @param int $dvdSeason
+     */
+    public function setDvdSeason($dvdSeason)
+    {
+        $this->dvdSeason = $dvdSeason;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProductionCode()
+    {
+        return $this->productionCode;
+    }
+
+    /**
+     * @param string $productionCode
+     */
+    public function setProductionCode($productionCode)
+    {
+        $this->productionCode = $productionCode;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAbsoluteNumber()
+    {
+        return $this->absoluteNumber;
+    }
+
+    /**
+     * @param int $absoluteNumber
+     */
+    public function setAbsoluteNumber($absoluteNumber)
+    {
+        $this->absoluteNumber = $absoluteNumber;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAirsAfterSeason()
+    {
+        return $this->airsAfterSeason;
+    }
+
+    /**
+     * @param int $airsAfterSeason
+     */
+    public function setAirsAfterSeason($airsAfterSeason)
+    {
+        $this->airsAfterSeason = $airsAfterSeason;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAirsBeforeEpisode()
+    {
+        return $this->airsBeforeEpisode;
+    }
+
+    /**
+     * @param int $airsBeforeEpisode
+     */
+    public function setAirsBeforeEpisode($airsBeforeEpisode)
+    {
+        $this->airsBeforeEpisode = $airsBeforeEpisode;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAirsBeforeSeason()
+    {
+        return $this->airsBeforeSeason;
+    }
+
+    /**
+     * @param int $airsBeforeSeason
+     */
+    public function setAirsBeforeSeason($airsBeforeSeason)
+    {
+        $this->airsBeforeSeason = $airsBeforeSeason;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSeasonId()
+    {
+        return $this->seasonId;
+    }
+
+    /**
+     * @param int $seasonId
+     */
+    public function setSeasonId($seasonId)
+    {
+        $this->seasonId = $seasonId;
     }
 }
