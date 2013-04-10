@@ -18,8 +18,8 @@ use ZendTest\Di\TestAsset\ConstructorInjection\X;
  * @package  AxTvDb\Client
  * @author   Jérôme Poskin <moinax@gmail.com>
  * @author   Michel Maas <michel@michelmaas.com>
- * @license  http://www.gnu.org/licenses/gpl.txt GNU GPLv3
- * @link     https://github.com/AxaliaN/TvDb
+ * @license  http://opensource.org/licenses/GPL-3.0 GPL-3.0
+ * @link     https://github.com/AxaliaN/AxTvDb
  */
 class Client
 {
@@ -77,10 +77,9 @@ class Client
      */
     public function __construct($config)
     {
-        $this->config = $config;
-
-        $this->baseUrl = $config['client']['baseUrl'];
-        $this->apiKey = $config['client']['apiKey'];
+        $this->setConfig($config);
+        $this->setBaseUrl($config['client']['baseUrl']);
+        $this->setApiKey($config['client']['apiKey']);
     }
 
     /**
@@ -183,7 +182,7 @@ class Client
      * @param string $language Language to get the episodes in
      * @param string $format   Format to retrieve the episodes in
      *
-     * @return array
+     * @return array Array containing Episode objects
      * @throws \ErrorException
      */
     public function getSerieEpisodes($serieId, $language = self::DEFAULT_LANGUAGE, $format = self::FORMAT_XML)
@@ -198,15 +197,13 @@ class Client
                 break;
         }
 
-        $serie = new Serie($data->Series);
-
         $episodes = array();
 
         foreach ($data->Episode as $episode) {
             $episodes[(int)$episode->id] = new Episode($episode);
         }
 
-        return array('serie' => $serie, 'episodes' => $episodes);
+        return array('episodes' => $episodes);
     }
 
     /**
@@ -253,13 +250,17 @@ class Client
         $data = $this->fetchXml('Updates.php?type=all&time=' . $previousTime);
 
         $series = array();
+
         foreach ($data->Series as $serieId) {
             $series[] = (int)$serieId;
         }
+
         $episodes = array();
+
         foreach ($data->Episode as $episodeId) {
             $episodes[] = (int)$episodeId;
         }
+
         return array('series' => $series, 'episodes' => $episodes);
     }
 
@@ -331,8 +332,8 @@ class Client
         if (empty($this->mirrors)) {
             $this->getMirrors();
         }
-        return $this->mirrors[$type][array_rand($this->mirrors[$type], 1)];
 
+        return $this->mirrors[$type][array_rand($this->mirrors[$type], 1)];
     }
 
     /**
@@ -342,14 +343,17 @@ class Client
      */
     protected function getLanguages()
     {
-        $languages = $this->fetchXml('languages.xml');
+        if (empty($this->languages)) {
+            $languages = $this->fetchXml('languages.xml');
 
-        foreach ($languages->Language as $language) {
-            $this->languages[(string)$language->abbreviation] = array(
-                'name' => (string)$language->name,
-                'abbreviation' => (string)$language->abbreviation,
-                'id' => (int)$language->id,
-            );
+
+            foreach ($languages->Language as $language) {
+                $this->languages[(string)$language->abbreviation] = array(
+                    'name' => (string)$language->name,
+                    'abbreviation' => (string)$language->abbreviation,
+                    'id' => (int)$language->id,
+                );
+            }
         }
     }
 
@@ -373,5 +377,53 @@ class Client
     public function setConfig($config)
     {
         $this->config = $config;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBaseUrl()
+    {
+        return $this->baseUrl;
+    }
+
+    /**
+     * @param string $baseUrl
+     */
+    public function setBaseUrl($baseUrl)
+    {
+        $this->baseUrl = $baseUrl;
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiKey()
+    {
+        return $this->apiKey;
+    }
+
+    /**
+     * @param string $apiKey
+     */
+    public function setApiKey($apiKey)
+    {
+        $this->apiKey = $apiKey;
+    }
+
+    /**
+     * @param array $mirrors
+     */
+    public function setMirrors($mirrors)
+    {
+        $this->mirrors = $mirrors;
+    }
+
+    /**
+     * @param array $languages
+     */
+    public function setLanguages($languages)
+    {
+        $this->languages = $languages;
     }
 }

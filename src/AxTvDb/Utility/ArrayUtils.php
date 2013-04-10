@@ -1,18 +1,18 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: Michel
- * Date: 9-4-13
- * Time: 19:33
- * To change this template use File | Settings | File Templates.
- */
 
 namespace AxTvDb\Utility;
 
-
-use Zend\Stdlib\ArrayUtils as ArrUtils;
-
-class ArrayUtils extends ArrUtils
+/**
+ * Utility class with functions for manipulating arrays
+ *
+ * @category AxTvDb
+ * @package  AxTvDb\Utility
+ * @author   Jérôme Poskin <moinax@gmail.com>
+ * @author   Michel Maas <michel@michelmaas.com>
+ * @license  http://opensource.org/licenses/GPL-3.0 GPL-3.0
+ * @link     https://github.com/AxaliaN/AxTvDb
+ */
+class ArrayUtils
 {
     /**
      * Removes indexes from an array if they are zero length after trimming
@@ -23,7 +23,6 @@ class ArrayUtils extends ArrUtils
      */
     public static function removeEmptyIndexes($array)
     {
-
         $length = count($array);
 
         for ($i = $length - 1; $i >= 0; $i--) {

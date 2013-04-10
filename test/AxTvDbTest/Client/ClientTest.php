@@ -9,23 +9,30 @@
 
 namespace AxTvDbTest\Client;
 
-class ClientTest {
+use AxTvDb\Client\Client as TvDbClient;
+use PHPUnit_Framework_TestCase;
 
-    protected function setUp()
+class ClientTest extends PHPUnit_Framework_TestCase
+{
+    protected $client;
+
+    public function setUp()
     {
-        $serviceManager = Bootstrap::getServiceManager();
-        $this->controller = new IndexController();
-        $this->request    = new Request();
-        $this->routeMatch = new RouteMatch(array('controller' => 'index'));
-        $this->event      = new MvcEvent();
-        $config = $serviceManager->get('Config');
-        $routerConfig = isset($config['router']) ? $config['router'] : array();
-        $router = HttpRouter::factory($routerConfig);
+        $config = array(
+            'client' => array(
+                'baseUrl' => 'http://thetvdb.com',
+                'apiKey' => '1'
+            )
+        );
 
-        $this->event->setRouter($router);
-        $this->event->setRouteMatch($this->routeMatch);
-        $this->controller->setEvent($this->event);
-        $this->controller->setServiceLocator($serviceManager);
+        $this->client = new TvDbClient($config);
+    }
+
+    public function testIfClientCanBeConstructed()
+    {
+
+        $this->assertEquals('http://thetvdb.com',$this->client->getBaseUrl());
+        $this->assertEquals('1',$this->client->getApiKey());
     }
 
 }

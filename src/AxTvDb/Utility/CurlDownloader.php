@@ -1,17 +1,19 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: Michel
- * Date: 9-4-13
- * Time: 19:57
- * To change this template use File | Settings | File Templates.
- */
 
 namespace AxTvDb\Utility;
 
-
 use AxTvDb\Exception\CurlException;
 
+/**
+ * Downloads files using cURL
+ *
+ * @category AxTvDb
+ * @package  AxTvDb\Utility
+ * @author   Jérôme Poskin <moinax@gmail.com>
+ * @author   Michel Maas <michel@michelmaas.com>
+ * @license  http://opensource.org/licenses/GPL-3.0 GPL-3.0
+ * @link     https://github.com/AxaliaN/AxTvDb
+ */
 class CurlDownloader
 {
     const POST = 'post';

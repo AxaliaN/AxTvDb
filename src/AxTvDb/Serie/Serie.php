@@ -12,8 +12,8 @@ use AxTvDb\Utility\ArrayUtils;
  * @package  AxTvDb\Serie
  * @author   Jérôme Poskin <moinax@gmail.com>
  * @author   Michel Maas <michel@michelmaas.com>
- * @license  http://www.gnu.org/licenses/gpl.txt GNU GPLv3
- * @link     https://github.com/AxaliaN/TvDb
+ * @license  http://opensource.org/licenses/GPL-3.0 GPL-3.0
+ * @link     https://github.com/AxaliaN/AxTvDb
  */
 class Serie
 {
