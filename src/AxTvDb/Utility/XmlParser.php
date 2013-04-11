@@ -26,14 +26,14 @@ class XmlParser
      */
     public static function getXml($data)
     {
-        if (extension_loaded('libxml')) {
+        if (self::getLibXmlLoaded()) {
             libxml_use_internal_errors(true);
         }
 
         $simpleXml = simplexml_load_string($data);
 
         if (!$simpleXml) {
-            if (extension_loaded('libxml')) {
+            if (self::getLibXmlLoaded()) {
                 $xmlErrors = libxml_get_errors();
 
                 $errors = array();
@@ -51,5 +51,10 @@ class XmlParser
         }
 
         return $simpleXml;
+    }
+
+    public static function getLibXmlLoaded()
+    {
+        return extension_loaded('libxml');
     }
 }

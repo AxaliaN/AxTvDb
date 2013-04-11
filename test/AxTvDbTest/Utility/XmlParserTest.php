@@ -38,11 +38,11 @@ class XmlParserTest extends PHPUnit_Framework_TestCase {
      */
     public function testIfExceptionThrownWhenXmlEmpty()
     {
-        if (extension_loaded('libxml')) {
+        /*if (XmlParser::getLibXmlLoaded()) {
             $this->markTestSkipped(
                 'libxml loaded, test will not return required exception.'
             );
-        }
+        }*/
 
         $xmlData = 'test';
 
