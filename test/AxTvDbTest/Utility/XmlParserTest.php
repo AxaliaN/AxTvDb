@@ -10,10 +10,12 @@
 namespace AxTvDbTest\Utility\XmlParser;
 
 use AxTvDb\Utility\XmlParser;
+use Mockery\Mock;
 use PHPUnit_Framework_TestCase;
 
 
-class XmlParserTest extends PHPUnit_Framework_TestCase {
+class XmlParserTest extends PHPUnit_Framework_TestCase
+{
 
     /**
      * Tests if the correct exception gets thrown when there's an error in the XML
@@ -38,14 +40,10 @@ class XmlParserTest extends PHPUnit_Framework_TestCase {
      */
     public function testIfExceptionThrownWhenXmlEmpty()
     {
-        /*if (XmlParser::getLibXmlLoaded()) {
-            $this->markTestSkipped(
-                'libxml loaded, test will not return required exception.'
-            );
-        }*/
+        XmlParser::$libXmlLoaded = false;
 
         $xmlData = 'test';
 
-        XmlParser::getXml($xmlData);
+        XmlParser::getXml($xmlData, false);
     }
 }

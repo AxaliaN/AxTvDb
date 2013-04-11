@@ -16,6 +16,8 @@ use AxTvDb\Exception\XmlException;
  */
 class XmlParser
 {
+    public static $libXmlLoaded = null;
+
     /**
      * Convert xml string to SimpleXMLElement
      *
@@ -26,14 +28,18 @@ class XmlParser
      */
     public static function getXml($data)
     {
-        if (self::getLibXmlLoaded()) {
+        if (self::$libXmlLoaded === null) {
+            self::$libXmlLoaded = extension_loaded('libxml');
+        }
+
+        if (self::$libXmlLoaded) {
             libxml_use_internal_errors(true);
         }
 
         $simpleXml = simplexml_load_string($data);
 
         if (!$simpleXml) {
-            if (self::getLibXmlLoaded()) {
+            if (self::$libXmlLoaded) {
                 $xmlErrors = libxml_get_errors();
 
                 $errors = array();
@@ -45,16 +51,11 @@ class XmlParser
                 if (count($errors) > 0) {
                     throw new XmlException(implode("\n", $errors));
                 }
-            }
+            } // @codeCoverageIgnore
 
             throw new XmlException('Xml file cound not be loaded.');
         }
 
         return $simpleXml;
-    }
-
-    public static function getLibXmlLoaded()
-    {
-        return extension_loaded('libxml');
     }
 }
