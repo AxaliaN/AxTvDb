@@ -11,7 +11,10 @@
     "homepage": "https://github.com/AxaliaN/TvDb",
     "require": {
         "php": ">=5.4",
-        "zendframework/zendframework": "2.*"
+        "zendframework/zendframework": "2.*",
+    },
+    "require-dev": {
+    	"mockery/mockery": "master"
     },
     "autoload": {
         "psr-0": { "AxTvDb": "src/" }
