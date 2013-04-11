@@ -10,17 +10,34 @@
 namespace AxTvDbTest\Episode;
 
 use AxTvDb\Episode\Episode;
+use AxTvDb\Utility\XmlParser;
 use DateTime;
 use PHPUnit_Framework_TestCase;
 use SimpleXMLElement;
 
-class EpisodeTest extends PHPUnit_Framework_TestCase {
+/**
+ * Test case for class AxTvDb\Episode\Episode
+ *
+ * @category AxTvDb
+ * @package  AxTvDb\Episode
+ * @author   Jérôme Poskin <moinax@gmail.com>
+ * @author   Michel Maas <michel@michelmaas.com>
+ * @license  http://opensource.org/licenses/GPL-3.0 GPL-3.0
+ * @link     https://github.com/AxaliaN/AxTvDb
+ */
+class EpisodeTest extends PHPUnit_Framework_TestCase
+{
     /**
      * @var Episode
      */
     protected $episode;
 
-    public function setUp()
+    /**
+     * Tests if an Episode gets instantiated correctly using XML data
+     *
+     * @return void
+     */
+    public function testIfEpisodeSetupCorrectly()
     {
         $xmlData =  '<?xml version="1.0" encoding="UTF-8" ?>
                      <Episode>
@@ -52,13 +69,10 @@ class EpisodeTest extends PHPUnit_Framework_TestCase {
                         <seriesid>80348</seriesid>
                     </Episode>';
 
-        $data = new SimpleXMLElement($xmlData);
+        $data = XmlParser::getXml($xmlData);
 
         $this->episode = new Episode($data);
-    }
 
-    public function testIfEpisodeSetupCorrectly()
-    {
         $this->assertEquals(332179, $this->episode->getId());
         $this->assertEquals(2, $this->episode->getDvdChapter());
         $this->assertEquals(2, $this->episode->getDvdEpisodeNumber());
@@ -87,7 +101,13 @@ class EpisodeTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(\DateTime::createFromFormat('U',1201292806), $this->episode->getLastUpdated());
     }
 
-    public function testIfCombinedNumbersGetSet(){
+    /**
+     * Tests if the correct Number and Season get set
+     *
+     * @return void
+     */
+    public function testIfCombinedNumbersGetSet()
+    {
         $xmlData =  '<?xml version="1.0" encoding="UTF-8" ?>
                      <Episode>
                         <id>332179</id>
@@ -126,5 +146,53 @@ class EpisodeTest extends PHPUnit_Framework_TestCase {
 
         $this->assertEquals(101, $this->episode->getNumber());
         $this->assertEquals(202, $this->episode->getSeason());
+    }
+
+    /**
+     * Tests if an Episode gets set when tags are missing from the XML,
+     * and if it uses default values
+     *
+     * @return void;
+     */
+    public function testIfEpisodeSetWhenMissingTags()
+    {
+        $xmlData =  '<?xml version="1.0" encoding="UTF-8" ?>
+                     <Episode>
+                        <id>332179</id>
+                        <Director>|Joseph McGinty Nichol|</Director>
+                        <EpisodeName>Chuck Versus the World</EpisodeName>
+                        <EpisodeNumber>1</EpisodeNumber>
+                    </Episode>';
+
+        $data = new SimpleXMLElement($xmlData);
+
+        $this->episode = new Episode($data);
+
+        $this->assertEquals(332179, $this->episode->getId());
+        $this->assertEquals(null, $this->episode->getDvdChapter());
+        $this->assertEquals(null, $this->episode->getDvdEpisodeNumber());
+        $this->assertEquals(null, $this->episode->getDvdSeason());
+        $this->assertEquals(null, $this->episode->getDvdDiscId());
+        $this->assertEquals(array('Joseph McGinty Nichol'), $this->episode->getDirectors());
+        $this->assertEquals('Chuck Versus the World', $this->episode->getName());
+        $this->assertEquals(1, $this->episode->getNumber());
+        $this->assertEquals(null, $this->episode->getFirstAired());
+        $this->assertEquals(array(), $this->episode->getGuestStars());
+        $this->assertEquals('', $this->episode->getImdbId());
+        $this->assertEquals('', $this->episode->getLanguage());
+        $this->assertEquals('', $this->episode->getOverview());
+        $this->assertEquals(null, $this->episode->getProductionCode());
+        $this->assertEquals('', $this->episode->getRating());
+        $this->assertEquals(0, $this->episode->getRatingCount());
+        $this->assertEquals(0, $this->episode->getSeason());
+        $this->assertEquals(array(), $this->episode->getWriters());
+        $this->assertEquals(null, $this->episode->getAbsoluteNumber());
+        $this->assertEquals(null, $this->episode->getAirsAfterSeason());
+        $this->assertEquals(null, $this->episode->getAirsBeforeEpisode());
+        $this->assertEquals(null, $this->episode->getAirsBeforeSeason());
+        $this->assertEquals('', $this->episode->getThumbnail());
+        $this->assertEquals(null, $this->episode->getSeasonId());
+        $this->assertEquals(null, $this->episode->getSerieId());
+        $this->assertEquals(\DateTime::createFromFormat('U', 0), $this->episode->getLastUpdated());
     }
 }

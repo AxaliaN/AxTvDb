@@ -57,7 +57,7 @@ class Episode
     /**
      * @var \DateTime
      */
-    protected $firstAired;
+    protected $firstAired = null;
 
     /**
      * @var string
@@ -87,7 +87,7 @@ class Episode
     /**
      * @var \DateTime
      */
-    protected $lastUpdated;
+    protected $lastUpdated = null;
 
     /**
      * @var int
@@ -107,32 +107,32 @@ class Episode
     /**
      * @var int
      */
-    protected $dvdChapter;
+    protected $dvdChapter = null;
 
     /**
      * @var int
      */
-    protected $dvdDiscId;
+    protected $dvdDiscId = null;
 
     /**
      * @var int
      */
-    protected $dvdEpisodeNumber;
+    protected $dvdEpisodeNumber = null;
 
     /**
      * @var int
      */
-    protected $dvdSeason;
+    protected $dvdSeason = null;
 
     /**
      * @var string
      */
-    protected $productionCode;
+    protected $productionCode = null;
 
     /**
      * @var int
      */
-    protected $absoluteNumber;
+    protected $absoluteNumber = null;
 
     /**
      * @var int

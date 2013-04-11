@@ -35,16 +35,19 @@ class XmlParser
         if (!$simpleXml) {
             if (extension_loaded('libxml')) {
                 $xmlErrors = libxml_get_errors();
+
                 $errors = array();
+
                 foreach ($xmlErrors as $error) {
                     $errors[] = sprintf('Error in file %s on line %d with message : %s', $error->file, $error->line, $error->message);
                 }
-                if (count($errors) > 0) {
 
+                if (count($errors) > 0) {
                     throw new XmlException(implode("\n", $errors));
                 }
             }
-            throw new XmlException('Xml file cound not be loaded');
+
+            throw new XmlException('Xml file cound not be loaded.');
         }
 
         return $simpleXml;
