@@ -26,7 +26,7 @@ class CurlDownloaderTest extends \PHPUnit_Framework_TestCase
 </Mirrors>
 ';
 
-        $downloadedData = CurlDOwnloader::fetch('http://thetvdb.com/api/' . APIKEY . '/mirrors.xml');
+        $downloadedData = CurlDownloader::fetch('http://thetvdb.com/api/' . APIKEY . '/mirrors.xml');
 
         $this->assertEquals($data, $downloadedData);
     }
@@ -36,7 +36,7 @@ class CurlDownloaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testIfErrorReturnedOnInvalidUrl()
     {
-        $downloadedData = CurlDOwnloader::fetch('http://thetvdb.com/api/' . APIKEY . '/test.xml');
+        $downloadedData = CurlDownloader::fetch('http://thetvdb.com/api/' . APIKEY . '/test.xml');
     }
 
     /**
@@ -44,7 +44,7 @@ class CurlDownloaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testIfPostCallGetsHandled()
     {
-        $downloadedData = CurlDOwnloader::fetch(
+        $downloadedData = CurlDownloader::fetch(
             'http://thetvdb.com/api/' . APIKEY . '/mirrors.xml',
             array('test'=>'value'),
             CurlDownloader::POST

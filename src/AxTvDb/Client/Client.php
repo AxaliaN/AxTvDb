@@ -2,14 +2,13 @@
 
 namespace AxTvDb\Client;
 
+use AxTvDb\Banner\Banner;
 use AxTvDb\Episode\Episode;
 use AxTvDb\Exception\CurlException;
 use AxTvDb\Exception\XmlException;
 use AxTvDb\Serie\Serie;
 use AxTvDb\Utility\CurlDownloader;
 use AxTvDb\Utility\XmlParser;
-use TvDb\Banner;
-use ZendTest\Di\TestAsset\ConstructorInjection\X;
 
 /**
  * Base TVDB library class, provides universal functions and variables
@@ -195,7 +194,7 @@ class Client
             default:
                 throw new \ErrorException('Unsupported format');
                 break;
-        }
+        } // @codeCoverageIgnore
 
         $episodes = array();
 
@@ -299,24 +298,27 @@ class Client
 
         $data = CurlDownloader::fetch($this->baseUrl . '/api/' . $this->apiKey . '/mirrors.xml');
 
-        $mirrors = XmlParser::getXml($data);
+        $mirrorsXml = XmlParser::getXml($data);
+        $mirrorsArray = array();
 
-        foreach ($mirrors->Mirror as $mirror) {
+        foreach ($mirrorsXml->Mirror as $mirror) {
             $typeMask = (int)$mirror->typemask;
             $mirrorPath = (string)$mirror->mirrorpath;
 
             if ($typeMask & self::MIRROR_TYPE_XML) {
-                $this->mirrors[self::MIRROR_TYPE_XML][] = $mirrorPath;
+                $mirrorsArray[self::MIRROR_TYPE_XML][] = $mirrorPath;
             }
 
             if ($typeMask & self::MIRROR_TYPE_BANNER) {
-                $this->mirrors[self::MIRROR_TYPE_BANNER][] = $mirrorPath;
+                $mirrorsArray[self::MIRROR_TYPE_BANNER][] = $mirrorPath;
             }
 
             if ($typeMask & self::MIRROR_TYPE_ZIP) {
-                $this->mirrors[self::MIRROR_TYPE_ZIP][] = $mirrorPath;
+                $mirrorsArray[self::MIRROR_TYPE_ZIP][] = $mirrorPath;
             }
         }
+
+        $this->setMirrors($mirrorsArray);
     }
 
     /**
@@ -344,27 +346,20 @@ class Client
     protected function getLanguages()
     {
         if (empty($this->languages)) {
-            $languages = $this->fetchXml('languages.xml');
+            $languageXml = $this->fetchXml('languages.xml');
 
+            $languageArray = array();
 
-            foreach ($languages->Language as $language) {
-                $this->languages[(string)$language->abbreviation] = array(
+            foreach ($languageXml->Language as $language) {
+                $languageArray[(string)$language->abbreviation] = array(
                     'name' => (string)$language->name,
                     'abbreviation' => (string)$language->abbreviation,
                     'id' => (int)$language->id,
                 );
             }
-        }
-    }
 
-    /**
-     * Gets the module config
-     *
-     * @return array
-     */
-    public function getConfig()
-    {
-        return $this->config;
+            $this->setLanguages($languageArray);
+        }
     }
 
     /**
