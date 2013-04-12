@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-namespace AxTvDbTest\Utility\XmlParser;
+namespace AxTvDbTest\Utility;
 
 use AxTvDb\Utility\XmlParser;
 use Mockery\Mock;

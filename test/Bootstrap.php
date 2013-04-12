@@ -1,12 +1,4 @@
 <?php
-/**
- * Test bootstrap for Acsi modules
- *
- * @category  AcsiTest
- * @package   AcsiTest
- * @copyright 2012 ACSI Holding bv (http://www.acsi.eu)
- * @version   SVN: $Id$
- */
 
 /**
  * Setup autoloading

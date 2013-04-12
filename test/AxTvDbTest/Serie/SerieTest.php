@@ -35,6 +35,7 @@ class SerieTest extends PHPUnit_Framework_TestCase
                        <Network>NBC</Network>
                        <Overview>Zachary Levi (Less Than Perfect) plays Chuck...</Overview>
                        <Rating>9.0</Rating>
+                       <RatingCount>10</RatingCount>
                        <Runtime>30 mins</Runtime>
                        <SeriesID>68724</SeriesID>
                        <SeriesName>Chuck</SeriesName>
@@ -53,9 +54,21 @@ class SerieTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('English', $this->serie->getLanguage());
         $this->assertEquals('NBC', $this->serie->getNetwork());
         $this->assertEquals('9.0', $this->serie->getRating());
+        $this->assertEquals('10', $this->serie->getRatingCount());
         $this->assertEquals('30', $this->serie->getRuntime());
         $this->assertEquals('Chuck', $this->serie->getName());
         $this->assertEquals('Continuing', $this->serie->getStatus());
+        $this->assertEquals('Zachary Levi (Less Than Perfect) plays Chuck...', $this->serie->getOverview());
+        $this->assertEquals('', $this->serie->getBanner());
+        $this->assertEquals('', $this->serie->getFanart());
+        $this->assertEquals('', $this->serie->getPoster());
+        $this->assertEquals(new \DateTime(''), $this->serie->getAdded());
+        $this->assertEquals(0, $this->serie->getAddedBy());
+        $this->assertEquals(array('Comedy'), $this->serie->getGenres());
+        $this->assertEquals('', $this->serie->getZap2ItId());
+        $this->assertEquals('', $this->serie->getContentRating());
+        $this->assertEquals(new \DateTime('2007-09-24'), $this->serie->getFirstAired());
         $this->assertEquals(\DateTime::createFromFormat('U', 1200785226), $this->serie->getLastUpdated());
+        $this->assertEquals(array('Adam Baldwin','Yvonne Strzechowski','Zachary Levi'), $this->serie->getActors());
     }
 }

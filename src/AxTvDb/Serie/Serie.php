@@ -141,28 +141,29 @@ class Serie
      */
     public function __construct(\SimpleXMLElement $data)
     {
-        $this->id = (int)$data->id;
-        $this->language = (string)$data->Language;
-        $this->name = (string)$data->SeriesName;
-        $this->banner = (string)$data->banner;
-        $this->overview = (string)$data->Overview;
-        $this->firstAired = new \DateTime((string)$data->FirstAired);
-        $this->imdbId = (string)$data->IMDB_ID;
-        $this->actors = (array)ArrayUtils::removeEmptyIndexes(explode('|', (string)$data->Actors));
-        $this->airsDayOfWeek = (string)$data->Airs_DayOfWeek;
-        $this->airsTime = (string)$data->Airs_Time;
-        $this->contentRating = (string)$data->ContentRating;
-        $this->genres = (array)ArrayUtils::removeEmptyIndexes(explode('|', (string)$data->Genre));
-        $this->network = (string)$data->Network;
-        $this->rating = (string)$data->Rating;
-        $this->runtime = (int)$data->Runtime;
-        $this->status = (string)$data->Status;
-        $this->added = new \DateTime((string)$data->added);
-        $this->addedBy = (int)$data->addedBy;
-        $this->fanArt = (string)$data->fanart;
-        $this->lastUpdated = \DateTime::createFromFormat('U', (int)$data->lastupdated);
-        $this->poster = (string)$data->poster;
-        $this->zap2ItId = (string)$data->zap2it_id;
+        $this->setId((int)$data->id);
+        $this->setLanguage((string)$data->Language);
+        $this->setName((string)$data->SeriesName);
+        $this->setBanner((string)$data->banner);
+        $this->setOverview((string)$data->Overview);
+        $this->setFirstAired(new \DateTime((string)$data->FirstAired));
+        $this->setImdbId((string)$data->IMDB_ID);
+        $this->setActors((array)ArrayUtils::extractValues((string)$data->Actors));
+        $this->setAirsDayOfWeek((string)$data->Airs_DayOfWeek);
+        $this->setAirsTime((string)$data->Airs_Time);
+        $this->setContentRating((string)$data->ContentRating);
+        $this->setGenres((array)ArrayUtils::extractValues((string)$data->Genre));
+        $this->setNetwork((string)$data->Network);
+        $this->setRating((string)$data->Rating);
+        $this->setRatingCount((int)$data->RatingCount);
+        $this->setRuntime((int)$data->Runtime);
+        $this->setStatus((string)$data->Status);
+        $this->setAdded(new \DateTime((string)$data->added));
+        $this->setAddedBy((int)$data->addedBy);
+        $this->setFanArt((string)$data->fanart);
+        $this->setLastUpdated(\DateTime::createFromFormat('U', (int)$data->lastupdated));
+        $this->setPoster((string)$data->poster);
+        $this->setZap2ItId((string)$data->zap2it_id);
     }
 
     /**

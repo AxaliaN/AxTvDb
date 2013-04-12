@@ -172,17 +172,17 @@ class Episode
             $this->setSeason((int)$data->SeasonNumber);
         }
 
-        $this->setDirectors((array)ArrayUtils::removeEmptyIndexes(explode('|', (string)$data->Director)));
+        $this->setDirectors((array)ArrayUtils::extractValues((string)$data->Director));
         $this->setName((string)$data->EpisodeName);
         $this->setFirstAired((string)$data->FirstAired !== '' ? new \DateTime((string)$data->FirstAired) : null);
-        $this->setGuestStars((array)ArrayUtils::removeEmptyIndexes(explode('|', (string)$data->GuestStars)));
+        $this->setGuestStars((array)ArrayUtils::extractValues((string)$data->GuestStars));
         $this->setImdbId((string)$data->IMDB_ID);
         $this->setLanguage((string)$data->Language);
         $this->setOverview((string)$data->Overview);
         $this->setRating((string)$data->Rating);
         $this->setRatingCount((int)$data->RatingCount);
         $this->setLastUpdated(\DateTime::createFromFormat('U', (int)$data->lastupdated));
-        $this->setWriters((array)ArrayUtils::removeEmptyIndexes(explode('|', (string)$data->Writer)));
+        $this->setWriters((array)ArrayUtils::extractValues((string)$data->Writer));
         $this->setThumbnail((string)$data->filename);
         $this->setSeasonId((int)$data->seasonid);
         $this->setSerieId((int)$data->seriesid);

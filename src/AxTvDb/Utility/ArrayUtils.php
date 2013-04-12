@@ -31,7 +31,30 @@ class ArrayUtils
             }
         }
 
-        sort($array);
+        return $array;
+    }
+
+    /**
+     * Converts a pipe-separated string to an array
+     *
+     * @param string $string             Array to convert
+     * @param bool   $removeEmptyIndexes Whether to automatically remove empty indexes
+     * @param bool   $sort               Whether to sort the resulting array
+     *
+     * @return array
+     */
+    public static function extractValues($string, $removeEmptyIndexes = true, $sort = true)
+    {
+        $array = explode('|', (string)$string);
+
+        if ($removeEmptyIndexes) {
+            $array = self::removeEmptyIndexes($array, $sort);
+        }
+
+        if ($sort) {
+            sort($array);
+        }
+
         return $array;
     }
 }
