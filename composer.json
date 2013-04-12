@@ -8,7 +8,15 @@
         "tvdb"
     ],
     "minimum-stability":"dev",
-    "homepage": "https://github.com/AxaliaN/TvDb",
+    "homepage": "https://github.com/AxaliaN/AxTvDb",
+    "authors": [
+        {
+            "name": "Michel Maas",
+            "email": "michel@michelmaas.com",
+            "homepage": "http://www.michelmaas.com",
+            "role": "Developer"
+        }
+    ],
     "require": {
         "php": ">=5.4",
         "zendframework/zendframework": "2.*",
@@ -18,6 +26,8 @@
     	"mockery/mockery": "master"
     },
     "autoload": {
-        "psr-0": { "AxTvDb": "src/" }
+        "psr-0": {
+            "AxTvDb": "src/"
+        }
     }
 }
