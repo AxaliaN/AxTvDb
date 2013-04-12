@@ -1,2 +1,2 @@
 <?php
-    DEFINE('APIKEY', '490450651F3A7C38');
+    DEFINE('APIKEY', '');
