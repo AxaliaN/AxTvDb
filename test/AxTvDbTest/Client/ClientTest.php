@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: Michel
- * Date: 9-4-13
- * Time: 20:01
- * To change this template use File | Settings | File Templates.
- */
 
 namespace AxTvDbTest\Client;
 
@@ -13,6 +6,15 @@ use AxTvDb\Client\Client as TvDbClient;
 use AxTvDb\Client\Client;
 use PHPUnit_Framework_TestCase;
 
+/**
+ * Test case for class AxTvDb\Client\Client
+ *
+ * @category AxTvDbTest
+ * @package  AxTvDbTest\Client
+ * @author   Michel Maas <michel@michelmaas.com>
+ * @license  http://opensource.org/licenses/GPL-3.0 GPL-3.0
+ * @link     https://github.com/AxaliaN/AxTvDb
+ */
 class ClientTest extends PHPUnit_Framework_TestCase
 {
     /** @var Client */

@@ -1,18 +1,21 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: michelm
- * Date: 12-4-13
- * Time: 8:12
- * To change this template use File | Settings | File Templates.
- */
 
 namespace AxTvDbTest\Utility;
 
 use AxTvDb\Exception\CurlException as CurlException;
 use AxTvDb\Utility\CurlDownloader;
+use PHPUnit_Framework_TestCase;
 
-class CurlDownloaderTest extends \PHPUnit_Framework_TestCase
+/**
+ * Test case for class AxTvDb\Utility\CurlDownloader
+ *
+ * @category AxTvDbTest
+ * @package  AxTvDbTest\Utility
+ * @author   Michel Maas <michel@michelmaas.com>
+ * @license  http://opensource.org/licenses/GPL-3.0 GPL-3.0
+ * @link     https://github.com/AxaliaN/AxTvDb
+ */
+class CurlDownloaderTest extends PHPUnit_Framework_TestCase
 {
     public function testIfCurlDownloadsCorrectly()
     {

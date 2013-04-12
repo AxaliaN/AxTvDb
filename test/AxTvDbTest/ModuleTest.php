@@ -1,18 +1,21 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: michelm
- * Date: 12-4-13
- * Time: 8:58
- * To change this template use File | Settings | File Templates.
- */
 
 namespace AxTvDbTest;
 
-
 use AxTvDb\Module;
+use PHPUnit_Framework_TestCase;
 
-class ModuleTest extends \PHPUnit_Framework_TestCase {
+/**
+ * Test case for class AxTvDb\Module
+ *
+ * @category AxTvDbTest
+ * @package  AxTvDbTest
+ * @author   Michel Maas <michel@michelmaas.com>
+ * @license  http://opensource.org/licenses/GPL-3.0 GPL-3.0
+ * @link     https://github.com/AxaliaN/AxTvDb
+ */
+class ModuleTest extends PHPUnit_Framework_TestCase
+{
 
     public function testIfConfigCanBeGet()
     {

@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: michelm
- * Date: 11-4-13
- * Time: 8:37
- * To change this template use File | Settings | File Templates.
- */
 
 namespace AxTvDbTest\Serie;
 
@@ -13,6 +6,15 @@ use AxTvDb\Serie\Serie;
 use AxTvDb\Utility\XmlParser;
 use PHPUnit_Framework_TestCase;
 
+/**
+ * Test case for class AxTvDb\Serie\Serie
+ *
+ * @category AxTvDbTest
+ * @package  AxTvDbTest\Serie
+ * @author   Michel Maas <michel@michelmaas.com>
+ * @license  http://opensource.org/licenses/GPL-3.0 GPL-3.0
+ * @link     https://github.com/AxaliaN/AxTvDb
+ */
 class SerieTest extends PHPUnit_Framework_TestCase
 {
     /**

@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: michelm
- * Date: 11-4-13
- * Time: 8:42
- * To change this template use File | Settings | File Templates.
- */
 
 namespace AxTvDbTest\Utility;
 
@@ -13,7 +6,15 @@ use AxTvDb\Utility\XmlParser;
 use Mockery\Mock;
 use PHPUnit_Framework_TestCase;
 
-
+/**
+ * Test case for class AxTvDb\Utility\CurlDownloader
+ *
+ * @category AxTvDbTest
+ * @package  AxTvDbTest\Utility
+ * @author   Michel Maas <michel@michelmaas.com>
+ * @license  http://opensource.org/licenses/GPL-3.0 GPL-3.0
+ * @link     https://github.com/AxaliaN/AxTvDb
+ */
 class XmlParserTest extends PHPUnit_Framework_TestCase
 {
 

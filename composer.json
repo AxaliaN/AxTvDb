@@ -1,7 +1,7 @@
 {
     "name": "axalian/axtvdb",
     "description": "AxTvDb",
-    "license": "BSD-3-Clause",
+    "license": "GPL-3.0",
     "type": "library",
     "version": "dev-master",
     "keywords": [
@@ -12,6 +12,7 @@
     "require": {
         "php": ">=5.4",
         "zendframework/zendframework": "2.*",
+        "ext-curl": "*"
     },
     "require-dev": {
     	"mockery/mockery": "master"

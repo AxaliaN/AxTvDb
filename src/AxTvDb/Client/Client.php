@@ -4,8 +4,6 @@ namespace AxTvDb\Client;
 
 use AxTvDb\Banner\Banner;
 use AxTvDb\Episode\Episode;
-use AxTvDb\Exception\CurlException;
-use AxTvDb\Exception\XmlException;
 use AxTvDb\Serie\Serie;
 use AxTvDb\Utility\CurlDownloader;
 use AxTvDb\Utility\XmlParser;

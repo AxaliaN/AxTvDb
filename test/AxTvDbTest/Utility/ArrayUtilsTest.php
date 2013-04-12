@@ -1,16 +1,18 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: michelm
- * Date: 12-4-13
- * Time: 7:59
- * To change this template use File | Settings | File Templates.
- */
 
 namespace AxTvDbTest\Utility;
 
 use AxTvDb\Utility\ArrayUtils;
 
+/**
+ * Test case for class AxTvDb\Utility\ArrayUtils
+ *
+ * @category AxTvDbTest
+ * @package  AxTvDbTest\Utility
+ * @author   Michel Maas <michel@michelmaas.com>
+ * @license  http://opensource.org/licenses/GPL-3.0 GPL-3.0
+ * @link     https://github.com/AxaliaN/AxTvDb
+ */
 class ArrayUtilsTest extends \PHPUnit_Framework_TestCase
 {
         public function testIfArrayProcessedCorrectly()

@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: michelm
- * Date: 10-4-13
- * Time: 15:42
- * To change this template use File | Settings | File Templates.
- */
 
 namespace AxTvDbTest\Episode;
 
@@ -18,9 +11,8 @@ use SimpleXMLElement;
 /**
  * Test case for class AxTvDb\Episode\Episode
  *
- * @category AxTvDb
- * @package  AxTvDb\Episode
- * @author   Jérôme Poskin <moinax@gmail.com>
+ * @category AxTvDbTest
+ * @package  AxTvDbTest\Episode
  * @author   Michel Maas <michel@michelmaas.com>
  * @license  http://opensource.org/licenses/GPL-3.0 GPL-3.0
  * @link     https://github.com/AxaliaN/AxTvDb
