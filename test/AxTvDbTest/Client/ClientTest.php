@@ -22,6 +22,10 @@ class ClientTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        if(APIKEY == ""){
+            $this->markTestIncomplete('Api key was not defined.');
+        }
+
         $config = array(
             'client' => array(
                 'baseUrl' => 'http://thetvdb.com',
@@ -72,7 +76,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
      */
     public function testIfSeriesRetrieved()
     {
-        $seriesData = $this->client->getSeries('Vikings');
+        $seriesData = $this->client->getSeriesByName('Vikings');
 
         $this->assertEquals('array', gettype($seriesData));
     }
@@ -83,21 +87,21 @@ class ClientTest extends PHPUnit_Framework_TestCase
      */
     public function testIfSerieDataRetrieved()
     {
-        $seriesData = $this->client->getSerie(75897);
+        $seriesData = $this->client->getSerieById(75897);
 
         $this->assertEquals('object', gettype($seriesData));
     }
 
     public function testIfBannerXmlDownloaded()
     {
-        $bannerData = $this->client->getBanners(75897);
+        $bannerData = $this->client->getBannersBySeriesId(75897);
 
         $this->assertEquals('array', gettype($bannerData));
     }
 
     public function testIfSerieEpisodesCanBeRetrieved()
     {
-        $episodeData = $this->client->getSerieEpisodes(75897);
+        $episodeData = $this->client->getEpisodesBySerieId(75897);
 
         $this->assertEquals('array', gettype($episodeData));
     }
@@ -107,7 +111,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
      */
     public function testIfExceptionThrownSerieEpisodesCanBeRetrievedInZip()
     {
-        $episodeData = $this->client->getSerieEpisodes(75897, Client::DEFAULT_LANGUAGE, Client::FORMAT_ZIP);
+        $episodeData = $this->client->getEpisodesBySerieId(75897, Client::DEFAULT_LANGUAGE, Client::FORMAT_ZIP);
 
         $this->assertEquals('array', gettype($episodeData));
     }
