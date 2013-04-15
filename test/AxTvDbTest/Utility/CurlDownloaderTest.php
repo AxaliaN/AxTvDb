@@ -17,6 +17,16 @@ use PHPUnit_Framework_TestCase;
  */
 class CurlDownloaderTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * Marks the test as incomplete if no APIKEY was defined
+     */
+    public function setUp()
+    {
+        if(APIKEY == ""){
+            $this->markTestIncomplete('Api key was not defined.');
+        }
+    }
+
     public function testIfCurlDownloadsCorrectly()
     {
         $data = '<?xml version="1.0" encoding="UTF-8" ?>
