@@ -1,7 +1,7 @@
 AxTvDb
 ====
 
-This is a modification of Jérôme Poskin awesome TvDb module
+This is a modification of Jérôme Poskin awesome TvDb module (https://github.com/Moinax/TvDb)
 
 What does it do:
 ----------------
