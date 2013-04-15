@@ -23,7 +23,7 @@
         "ext-curl": "*"
     },
     "require-dev": {
-    	"mockery/mockery": "master"
+    	"mockery/mockery": "dev-master"
     },
     "autoload": {
         "psr-0": {
