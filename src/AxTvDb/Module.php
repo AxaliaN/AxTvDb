@@ -5,7 +5,7 @@ namespace AxTvDb;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 
 /**
- * Service factory to instantiate the AxTvDb Client
+ * Module
  *
  * @category AxTvDb
  * @package  AxTvDb\Module
