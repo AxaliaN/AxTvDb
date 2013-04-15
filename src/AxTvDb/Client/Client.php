@@ -4,6 +4,8 @@ namespace AxTvDb\Client;
 
 use AxTvDb\Banner\Banner;
 use AxTvDb\Episode\Episode;
+use AxTvDb\Exception\CurlException;
+use AxTvDb\Exception\XmlException;
 use AxTvDb\Serie\Serie;
 use AxTvDb\Utility\CurlDownloader;
 use AxTvDb\Utility\XmlParser;
@@ -118,7 +120,7 @@ class Client
      *
      * @return array
      */
-    public function getSeries($seriesName, $language = self::DEFAULT_LANGUAGE)
+    public function getSeriesByName($seriesName, $language = self::DEFAULT_LANGUAGE)
     {
         /** @var $data \SimpleXmlElement */
         $data = $this->fetchXml('GetSeries.php?seriesname=' . urlencode($seriesName) . '&language=' . $language);
@@ -140,7 +142,7 @@ class Client
      *
      * @return Serie|bool A serie object or false if not found
      */
-    public function getSerie($serieId, $language = self::DEFAULT_LANGUAGE)
+    public function getSerieById($serieId, $language = self::DEFAULT_LANGUAGE)
     {
         $data = $this->fetchXml('series/' . $serieId . '/' . $language . '.xml');
 
@@ -161,7 +163,7 @@ class Client
      *
      * @return array
      */
-    public function getBanners($serieId)
+    public function getBannersBySeriesId($serieId)
     {
         $data = $this->fetchXml('series/' . $serieId . '/banners.xml');
         $banners = array();
@@ -182,7 +184,7 @@ class Client
      * @return array Array containing Episode objects
      * @throws \ErrorException
      */
-    public function getSerieEpisodes($serieId, $language = self::DEFAULT_LANGUAGE, $format = self::FORMAT_XML)
+    public function getEpisodesBySerieId($serieId, $language = self::DEFAULT_LANGUAGE, $format = self::FORMAT_XML)
     {
         switch ($format) {
             case self::FORMAT_XML:
@@ -206,16 +208,16 @@ class Client
     /**
      * Get a specific episode by season and episode number
      *
-     * @param int    $serieId  ID of the series
-     * @param int    $season   Number of the season
-     * @param int    $episode  Number of the episode
-     * @param string $language Language to get the episodes in
+     * @param int    $serieId        ID of the series
+     * @param int    $seasonNumber   Number of the season
+     * @param int    $episodeNumber  Number of the episode
+     * @param string $language       Language to get the episodes in
      *
      * @return Episode
      */
-    public function getEpisode($serieId, $season, $episode, $language = self::DEFAULT_LANGUAGE)
+    public function getEpisode($serieId, $seasonNumber, $episodeNumber, $language = self::DEFAULT_LANGUAGE)
     {
-        $data = $this->fetchXml('series/' . $serieId . '/default/' . $season . '/' . $episode . '/' . $language . '.xml');
+        $data = $this->fetchXml('series/' . $serieId . '/default/' . $seasonNumber . '/' . $episodeNumber . '/' . $language . '.xml');
 
         return new Episode($data->Episode);
     }

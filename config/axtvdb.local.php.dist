@@ -1,0 +1,12 @@
+<?php
+
+return array(
+    'axalian' => array(
+        'tvdb' => array(
+            'client' => array(
+                'baseUrl' => 'http://thetvdb.com',
+                'apiKey' => ''
+            ),
+        ),
+    ),
+);
