@@ -5,6 +5,7 @@ namespace AxTvDb\Client;
 use AxTvDb\Banner\Banner;
 use AxTvDb\Episode\Episode;
 use AxTvDb\Serie\Serie;
+use AxTvDb\Utility\BannerDownloader;
 use AxTvDb\Utility\CurlDownloader;
 use AxTvDb\Utility\XmlParser;
 
@@ -259,6 +260,19 @@ class Client
         }
 
         return array('series' => $series, 'episodes' => $episodes);
+    }
+
+    /**
+     * Download a file and save it
+     *
+     * @param string $url          URL to download
+     * @param string $saveLocation Path to save to
+     *
+     * @return bool True on success
+     */
+    public function downloadImage($url, $path)
+    {
+        return BannerDownloader::downloadBanner($this->getMirror(self::MIRROR_TYPE_BANNER) . "/banners/" . $url, $path);
     }
 
     /**
