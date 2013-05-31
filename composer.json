@@ -28,6 +28,9 @@
     "autoload": {
         "psr-0": {
             "AxTvDb": "src/"
-        }
+        },
+        "classmap": [
+            "./src/AxTvDb"
+        ]
     }
 }
