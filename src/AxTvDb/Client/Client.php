@@ -162,12 +162,26 @@ class Client
      *
      * @return array
      */
-    public function getBannersBySeriesId($serieId)
+    public function getBannersBySeriesId($serieId, $type=false, $type2=false)
     {
         $data = $this->fetchXml('series/' . $serieId . '/banners.xml');
         $banners = array();
         foreach ($data->Banner as $banner) {
-            $banners[] = new Banner($banner);
+            $add_banner = false;
+            if($type && !$type2 && $banner->BannerType == $type)
+                $add_banner = true;
+            
+            if(!$type && $type2 && $banner->BannerType2 == $type2)
+                $add_banner = true;
+            
+            if($type && $type2 && $banner->BannerType == $type && $banner->BannerType2 == $type2)
+                $add_banner = true;
+            
+            if(!$type && !$type2)
+                $add_banner = true;
+            
+            if($add_banner)
+                $banners[] = new Banner($banner);
         }
 
         return $banners;
